@@ -1,7 +1,7 @@
 import time
 
 # 로그인
-def signin_Megazone(self):
+def signIn_megazone(self):
     print("Calling up a signin_Megazone Module") # 해당 모듈 호출되었음을 안내
     driver = self.driver
     driver.find_element_by_xpath('//*[@id="root"]/div/div/div/div/div/div/div[2]/form/div[1]/a').click()
