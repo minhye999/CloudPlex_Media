@@ -23,7 +23,7 @@ class Lnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self) # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self) # Project Main page로 이동하는 공통 모듈 호출
             # Dashboard 메뉴 출력 확인
             self.assertEqual("Dashboard", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Download Apps'])[1]/following::span[1]").text)
@@ -37,7 +37,7 @@ class Lnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkMenuDashboard')
 
@@ -45,7 +45,7 @@ class Lnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Transcoding 메뉴 출력 확인
             self.assertEqual("Transcoding", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Dashboard'])[1]/following::span[1]").text)
@@ -64,7 +64,7 @@ class Lnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkMenuTranscoding')
 
@@ -72,7 +72,7 @@ class Lnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Jobs 메뉴 출력 확인
             self.assertEqual("Jobs", driver.find_element_by_link_text("Jobs").text)
             # Jobs 메뉴 클릭
@@ -89,7 +89,7 @@ class Lnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkMenuJobs')
 
@@ -97,7 +97,7 @@ class Lnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Create Job 메뉴 출력 확인
             self.assertEqual("Create Job", driver.find_element_by_link_text("Create Job").text)
             # Create Job 메뉴 클릭
@@ -114,7 +114,7 @@ class Lnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkMenuCreateJob')
 
@@ -122,7 +122,7 @@ class Lnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Contents 메뉴 출력 확인
             self.assertEqual("Contents", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Create Job'])[1]/following::span[1]").text)
             # Contents 메뉴 클릭
@@ -137,7 +137,7 @@ class Lnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkMenuContents')
 
@@ -145,7 +145,7 @@ class Lnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Assets 메뉴 출력 확인
             self.assertEqual("Assets", driver.find_element_by_link_text("Assets").text)
             # Assets 메뉴 클릭
@@ -160,7 +160,7 @@ class Lnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkMenuAssets')
 
@@ -168,7 +168,7 @@ class Lnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Videos 메뉴 출력 확인
             self.assertEqual("Videos", driver.find_element_by_link_text("Videos").text)
             # Videos 메뉴 클릭
@@ -183,7 +183,7 @@ class Lnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkMenuVideos')
 
@@ -191,7 +191,7 @@ class Lnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # People 메뉴 출력 확인
             self.assertEqual("People", driver.find_element_by_link_text("People").text)
             # People 메뉴 클릭
@@ -208,7 +208,7 @@ class Lnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkMenuPeople')
 
@@ -216,7 +216,7 @@ class Lnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Live 메뉴 출력 확인
             self.assertEqual("Live", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='People'])[1]/following::span[1]").text)
             # Live 메뉴 클릭
@@ -231,7 +231,7 @@ class Lnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkMenuLive')
 
@@ -239,7 +239,7 @@ class Lnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Streams 메뉴 출력 확인
             self.assertEqual("Streams", driver.find_element_by_link_text("Streams").text)
             # Streams 메뉴 클릭
@@ -254,7 +254,7 @@ class Lnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkMenuStreams')
 
@@ -262,7 +262,7 @@ class Lnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Listings 메뉴 출력 확인
             self.assertEqual("Listings", driver.find_element_by_link_text("Listings").text)
             # Listings 메뉴 클릭
@@ -277,7 +277,7 @@ class Lnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkMenuListings')
 
@@ -285,7 +285,7 @@ class Lnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Channels 메뉴 출력 확인
             self.assertEqual("Channels", driver.find_element_by_link_text("Channels").text)
             # Channels 메뉴 클릭
@@ -301,7 +301,7 @@ class Lnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkMenuChannels')
 
@@ -309,7 +309,7 @@ class Lnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # LNB [접기]버튼 확인
             self.assertEqual("", driver.find_element_by_xpath("(//button[@type='button'])[6]").get_attribute("value"))
             # LNB [펼치기]버튼 클릭
@@ -323,7 +323,7 @@ class Lnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkBtnLNB')
 
@@ -350,5 +350,5 @@ def suite():
     return suite
 
 if __name__ == "__main__":
-    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Reports")
+    runner = HtmlTestRunner.HTMLTestRunner(output="../../../staging/Chrome/Test_Results/Reports")
     runner.run(suite())

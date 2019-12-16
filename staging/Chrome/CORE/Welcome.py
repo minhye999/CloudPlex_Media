@@ -29,7 +29,7 @@ class Welcome(unittest.TestCase):
             print('TEST FAIL : check_title')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_Title-%s.png' % now)
+            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_Title-%s.png' % now)
         else:
             print('TEST PASS : check_title')
 
@@ -44,7 +44,7 @@ class Welcome(unittest.TestCase):
             print('TEST FAIL : check_logo')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_Title-%s.png' % now)
+            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_Title-%s.png' % now)
         else:
             print('TEST PASS : check_logo')
 
@@ -60,7 +60,7 @@ class Welcome(unittest.TestCase):
             print('TEST FAIL : check_welcome')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_Welcome-%s.png' % now)
+            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_Welcome-%s.png' % now)
         else:
             print('TEST PASS : check_welcome')
 
@@ -97,7 +97,7 @@ class Welcome(unittest.TestCase):
             print('TEST FAIL : check_btn_signIn')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_Sign-%s.png' % now)
+            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_Sign-%s.png' % now)
         else:
             print('TEST PASS : check_btn_signIn')
 
@@ -116,7 +116,7 @@ class Welcome(unittest.TestCase):
             print('TEST FAIL : check_link_createAccount')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_CreateAccount-%s.png' % now)
+            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_CreateAccount-%s.png' % now)
         else:
             print('TEST PASS : check_link_createAccount')
 
@@ -135,5 +135,5 @@ def suite():
     return suite
 
 if __name__ == "__main__":
-    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Reports")
+    runner = HtmlTestRunner.HTMLTestRunner(output="../../../staging/Chrome/Test_Results/Reports")
     runner.run(suite())

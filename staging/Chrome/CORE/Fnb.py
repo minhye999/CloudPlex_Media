@@ -23,7 +23,7 @@ class Fnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Terms & Conditions 링크 출력 확인
             self.assertEqual("Terms & Conditions", driver.find_element_by_link_text("Terms & Conditions").text)
             # Terms & Conditions 링크 클릭
@@ -36,7 +36,7 @@ class Fnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkLinkTerms')
 
@@ -44,7 +44,7 @@ class Fnb(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Copyright 출력 확인
             self.assertEqual(u"Copyright © 2019. Megazone Corp. All rights reserved.", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Terms & Conditions'])[1]/following::span[1]").text)
             # Megazone Corp. 링크 확인
@@ -59,7 +59,7 @@ class Fnb(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkCopyright')
 
@@ -75,5 +75,5 @@ def suite():
     return suite
 
 if __name__ == "__main__":
-    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Reports")
+    runner = HtmlTestRunner.HTMLTestRunner(output="../../../staging/Chrome/Test_Results/Reports")
     runner.run(suite())

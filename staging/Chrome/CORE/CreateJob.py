@@ -23,7 +23,7 @@ class CreateJob(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # [Create Job] 메뉴로 이동
             driver.find_element_by_link_text("Create Job").click()
             # Breadcrumb 확인 (Transcoding > Create Job)
@@ -36,7 +36,7 @@ class CreateJob(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkBreadcrumb')
 
@@ -44,7 +44,7 @@ class CreateJob(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # [Create Job] 메뉴로 이동
             driver.find_element_by_link_text("Create Job").click()
             # Title 확인 (Create Job)
@@ -55,7 +55,7 @@ class CreateJob(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkTitle')
 
@@ -63,7 +63,7 @@ class CreateJob(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # [Create Job] 메뉴로 이동
             driver.find_element_by_link_text("Create Job").click()
             # Pipeline Text 확인
@@ -92,7 +92,7 @@ class CreateJob(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkPipeline')
 
@@ -100,7 +100,7 @@ class CreateJob(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # [Create Job] 메뉴로 이동
             driver.find_element_by_link_text("Create Job").click()
             CreateJob.test_checkPipeline(self) # Pipeline Detail 팝업 호출
@@ -112,7 +112,7 @@ class CreateJob(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkPipelineDetailPopUp')
 
@@ -120,7 +120,7 @@ class CreateJob(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # [Create Job] 메뉴로 이동
             driver.find_element_by_link_text("Create Job").click()
             # Pipeline Select Box 활성화
@@ -151,7 +151,7 @@ class CreateJob(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkProfile')
 
@@ -169,5 +169,5 @@ def suite():
     return suite
 
 if __name__ == "__main__":
-    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Reports")
+    runner = HtmlTestRunner.HTMLTestRunner(output="../../../staging/Chrome/Test_Results/Reports")
     runner.run(suite())
