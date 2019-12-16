@@ -26,7 +26,7 @@ class test(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_Title-%s.png' % now)
+                'F:/PyCharm/Project/CloudPlex_Media/staging/Chrome/Test_Results/Screenshots/Screenshots/test_Title-%s.png' % now)
         else:
             print('TEST PASS : check_title')
 
