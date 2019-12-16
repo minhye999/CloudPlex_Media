@@ -19,12 +19,12 @@ class CreateJob(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
 
-    def test_checkBreadcrumb(self):  # Breadcrumb 확인
+    def test_check_breadcrumb(self):  # Breadcrumb 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
             staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
-            # [Create Job] 메뉴로 이동
+            # [Create Job] 메뉴 클릭
             driver.find_element_by_link_text("Create Job").click()
             # Breadcrumb 확인 (Transcoding > Create Job)
             self.assertEqual("Transcoding", driver.find_element_by_xpath(
@@ -32,34 +32,34 @@ class CreateJob(unittest.TestCase):
             self.assertEqual("Create Job", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Transcoding'])[2]/following::li[1]").text)
         except:
-            print('TEST FAIL : checkBreadcrumb')
+            print('TEST FAIL : check_breadcrumb')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkBreadcrumb')
+            print('TEST PASS : check_breadcrumb')
 
-    def test_checkTitle(self):  # Title 확인
+    def test_check_title(self):  # Title 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
             staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
-            # [Create Job] 메뉴로 이동
+            # [Create Job] 메뉴 클릭
             driver.find_element_by_link_text("Create Job").click()
             # Title 확인 (Create Job)
             self.assertEqual("Create Job", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Channels'])[1]/following::h3[1]").text)
         except:
-            print('TEST FAIL : checkTitle')
+            print('TEST FAIL : check_title')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkTitle')
+            print('TEST PASS : check_title')
 
-    def test_checkPipeline(self):  # Pipeline 확인 및 선택
+    def test_check_pipeline(self):  # Pipeline 확인 및 선택
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -88,35 +88,35 @@ class CreateJob(unittest.TestCase):
             self.assertEqual("Pipeline Detail", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='hls with multiple audio manual'])[1]/following::h5[1]").text)
         except:
-            print('TEST FAIL : checkPipeline')
+            print('TEST FAIL : check_pipeline')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkPipeline')
+            print('TEST PASS : check_pipeline')
 
-    def test_checkPipelineDetailPopUp(self):  # Pipeline Detail 팝업 확인
+    def test_check_pipelineDetailPopUp(self):  # Pipeline Detail 팝업 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
             staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # [Create Job] 메뉴로 이동
             driver.find_element_by_link_text("Create Job").click()
-            CreateJob.test_checkPipeline(self) # Pipeline Detail 팝업 호출
+            CreateJob.test_check_pipeline(self) # Pipeline Detail 팝업 호출
             # Pipeline Detail 팝업의 Title 확인
             self.assertEqual("Pipeline Detail", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='hls with multiple audio manual'])[1]/following::h5[1]").text)
         except:
-            print('TEST FAIL : checkPipelineDetailPopUp')
+            print('TEST FAIL : check_pipelineDetailPopUp')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkPipelineDetailPopUp')
+            print('TEST PASS : check_pipelineDetailPopUp')
 
-    def test_checkProfile(self):  # Profile 확인 및 선택
+    def test_check_profile(self):  # Profile 확인 및 선택
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -147,13 +147,13 @@ class CreateJob(unittest.TestCase):
             self.assertEqual("Profile Detail", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='(3)'])[1]/following::h5[1]").text)
         except:
-            print('TEST FAIL : checkProfile')
+            print('TEST FAIL : check_profile')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkProfile')
+            print('TEST PASS : check_profile')
 
     def tearDown(self):
         self.driver.close()
@@ -162,10 +162,11 @@ class CreateJob(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(CreateJob('test_checkBreadcrumb'))
-    suite.addTest(CreateJob("test_checkPipeline"))
-    suite.addTest(CreateJob("test_checkPipelineDetailPopUp"))
-    suite.addTest(CreateJob("test_checkProfile"))
+    suite.addTest(CreateJob('test_check_breadcrumb'))
+    suite.addTest(CreateJob("test_check_title"))
+    suite.addTest(CreateJob("test_check_pipeline"))
+    suite.addTest(CreateJob("test_check_pipelineDetailPopUp"))
+    suite.addTest(CreateJob("test_check_profile"))
     return suite
 
 if __name__ == "__main__":
