@@ -19,7 +19,7 @@ class Lnb(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
 
-    def test_checkMenuDashboard(self): # Dashboard 메뉴 확인 및 이동
+    def test_check_menu_dashboard(self): # Dashboard 메뉴 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -33,15 +33,15 @@ class Lnb(unittest.TestCase):
             time.sleep(3)
             # Dashboard 메뉴로 이동 확인
         except:
-            print('TEST FAIL : checkMenuDashboard')
+            print('TEST FAIL : check_menu_dashboard')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkMenuDashboard')
+            print('TEST PASS : check_menu_dashboard')
 
-    def test_checkMenuTranscoding(self):  # Transcoding 메뉴 확인 및 이동
+    def test_check_menu_transcoding(self):  # Transcoding 메뉴 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -60,15 +60,15 @@ class Lnb(unittest.TestCase):
             self.assertEqual("Jobs", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Transcoding'])[2]/following::li[1]").text)
         except:
-            print('TEST FAIL : checkMenuTranscoding')
+            print('TEST FAIL : check_menu_transcoding')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkMenuTranscoding')
+            print('TEST PASS : check_menu_transcoding')
 
-    def test_checkMenuJobs(self):  # Jobs 메뉴 확인 및 이동
+    def test_check_menu_jobs(self):  # Jobs 메뉴 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -85,15 +85,15 @@ class Lnb(unittest.TestCase):
             self.assertEqual("Jobs", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Transcoding'])[2]/following::li[1]").text)
         except:
-            print('TEST FAIL : checkMenuJobs')
+            print('TEST FAIL : check_menu_jobs')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkMenuJobs')
+            print('TEST PASS : check_menu_jobs')
 
-    def test_checkMenuCreateJob(self):  # Create Job 메뉴 확인 및 이동
+    def test_check_menu_createJob(self):  # Create Job 메뉴 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -110,15 +110,15 @@ class Lnb(unittest.TestCase):
             self.assertEqual("Create Job", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Transcoding'])[2]/following::li[1]").text)
         except:
-            print('TEST FAIL : checkMenuCreateJob')
+            print('TEST FAIL : check_menu_createJob')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkMenuCreateJob')
+            print('TEST PASS : check_menu_createJob')
 
-    def test_checkMenuContents(self):  # Contents 메뉴 확인 및 이동
+    def test_check_menu_contents(self):  # Contents 메뉴 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -133,15 +133,15 @@ class Lnb(unittest.TestCase):
             # Contents 메뉴로 이동 확인 (Breadcrumb : Contents > Assets)
             self.assertEqual("Assets", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Contents'])[2]/following::li[1]").text)
         except:
-            print('TEST FAIL : checkMenuContents')
+            print('TEST FAIL : check_menu_contents')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkMenuContents')
+            print('TEST PASS : check_menu_contents')
 
-    def test_checkMenuAssets(self):  # Assets 메뉴 확인 및 이동
+    def test_check_menu_assets(self):  # Assets 메뉴 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -156,15 +156,15 @@ class Lnb(unittest.TestCase):
             # Assets 메뉴로 이동 확인 (Breadcrumb : Contents > Assets)
             self.assertEqual("Assets", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Contents'])[2]/following::li[1]").text)
         except:
-            print('TEST FAIL : checkMenuAssets')
+            print('TEST FAIL : check_menu_assets')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkMenuAssets')
+            print('TEST PASS : check_menu_assets')
 
-    def test_checkMenuVideos(self):  # Videos 메뉴 확인 및 이동
+    def test_check_menu_videos(self):  # Videos 메뉴 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -179,15 +179,15 @@ class Lnb(unittest.TestCase):
             # Videos 메뉴로 이동 확인 (Breadcrumb : Contents > Videos)
             self.assertEqual("Videos", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Contents'])[2]/following::li[1]").text)
         except:
-            print('TEST FAIL : checkMenuVideos')
+            print('TEST FAIL : check_menu_videos')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkMenuVideos')
+            print('TEST PASS : check_menu_videos')
 
-    def test_checkMenuPeople(self):  # People 메뉴 확인 및 이동
+    def test_check_menu_people(self):  # People 메뉴 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -204,15 +204,15 @@ class Lnb(unittest.TestCase):
             self.assertEqual("People", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Contents'])[2]/following::li[1]").text)
         except:
-            print('TEST FAIL : checkMenuPeople')
+            print('TEST FAIL : check_menu_people')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkMenuPeople')
+            print('TEST PASS : check_menu_people')
 
-    def test_checkMenuLive(self):  # Live 메뉴 확인 및 이동
+    def test_check_menu_live(self):  # Live 메뉴 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -227,15 +227,15 @@ class Lnb(unittest.TestCase):
             # Live 메뉴로 이동 확인 (Breadcrumb : Live > Streams)
             self.assertEqual("Streams", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Live'])[2]/following::li[1]").text)
         except:
-            print('TEST FAIL : checkMenuLive')
+            print('TEST FAIL : check_menu_live')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkMenuLive')
+            print('TEST PASS : check_menu_live')
 
-    def test_checkMenuStreams(self):  # Streams 메뉴 확인 및 이동
+    def test_check_menu_streams(self):  # Streams 메뉴 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -250,15 +250,15 @@ class Lnb(unittest.TestCase):
             # Streams 메뉴로 이동 확인 (Breadcrumb : Live > Streams)
             self.assertEqual("Streams", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Live'])[2]/following::li[1]").text)
         except:
-            print('TEST FAIL : checkMenuStreams')
+            print('TEST FAIL : check_menu_streams')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkMenuStreams')
+            print('TEST PASS : check_menu_streams')
 
-    def test_checkMenuListings(self):  # Listings 메뉴 확인 및 이동
+    def test_check_menu_listings(self):  # Listings 메뉴 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -273,15 +273,15 @@ class Lnb(unittest.TestCase):
             # Listings 메뉴로 이동 확인 (Breadcrumb : Live > Listings)
             self.assertEqual("Listings", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Live'])[2]/following::li[1]").text)
         except:
-            print('TEST FAIL : checkMenuListings')
+            print('TEST FAIL : check_menu_listings')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkMenuListings')
+            print('TEST PASS : check_menu_listings')
 
-    def test_checkMenuChannels(self):  # Channels 메뉴 확인 및 이동
+    def test_check_menu_channels(self):  # Channels 메뉴 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -297,15 +297,15 @@ class Lnb(unittest.TestCase):
             # Channels 메뉴로 이동 확인 (Breadcrumb : Live > Channels)
             self.assertEqual("Channels", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Live'])[2]/following::li[1]").text)
         except:
-            print('TEST FAIL : checkMenuChannels')
+            print('TEST FAIL : check_menu_channels')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkMenuChannels')
+            print('TEST PASS : check_menu_channels')
 
-    def test_checkBtnLNB(self):  # LNB 접기/펼치기 버튼 확인 및 이동
+    def test_check_btn_lnb(self):  # LNB 접기/펼치기 버튼 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -319,13 +319,13 @@ class Lnb(unittest.TestCase):
             # LNB [펼치기]버튼 클릭 ★ 접기랑 똑같은데 흠...
             driver.find_element_by_xpath("(//button[@type='button'])[6]").click()
         except:
-            print('TEST FAIL : checkBtnLNB')
+            print('TEST FAIL : check_btn_lnb')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkBtnLNB')
+            print('TEST PASS : check_btn_lnb')
 
     def tearDown(self):
         self.driver.close()
@@ -334,19 +334,19 @@ class Lnb(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(Lnb('test_checkMenuDashboard'))
-    suite.addTest(Lnb("test_checkMenuTranscoding"))
-    suite.addTest(Lnb("test_checkMenuJobs"))
-    suite.addTest(Lnb("test_checkMenuCreateJob"))
-    suite.addTest(Lnb("test_checkMenuContents"))
-    suite.addTest(Lnb("test_checkMenuAssets"))
-    suite.addTest(Lnb("test_checkMenuVideos"))
-    suite.addTest(Lnb("test_checkMenuPeople"))
-    suite.addTest(Lnb("test_checkMenuLive"))
-    suite.addTest(Lnb("test_checkMenuStreams"))
-    suite.addTest(Lnb("test_checkMenuListings"))
-    suite.addTest(Lnb("test_checkMenuChannels"))
-    suite.addTest(Lnb("test_checkBtnLNB"))
+    suite.addTest(Lnb('test_check_menu_dashboard'))
+    suite.addTest(Lnb("test_check_menu_transcoding"))
+    suite.addTest(Lnb("test_check_menu_jobs"))
+    suite.addTest(Lnb("test_check_menu_createJob"))
+    suite.addTest(Lnb("test_check_menu_contents"))
+    suite.addTest(Lnb("test_check_menu_assets"))
+    suite.addTest(Lnb("test_check_menu_videos"))
+    suite.addTest(Lnb("test_check_menu_people"))
+    suite.addTest(Lnb("test_check_menu_live"))
+    suite.addTest(Lnb("test_check_menu_streams"))
+    suite.addTest(Lnb("test_check_menu_listings"))
+    suite.addTest(Lnb("test_check_menu_channels"))
+    suite.addTest(Lnb("test_check_btn_lnb"))
     return suite
 
 if __name__ == "__main__":

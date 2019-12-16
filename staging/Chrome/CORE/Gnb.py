@@ -19,7 +19,7 @@ class Gnb(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
 
-    def test_checkImgServiceLogo(self): # Service Logo 출력 및 링크 이동 확인
+    def test_check_img_logo(self): # Service Logo 출력 및 링크 이동 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -36,14 +36,14 @@ class Gnb(unittest.TestCase):
             self.assertEqual("Create Job", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Channels'])[1]/following::h3[1]").text)
         except:
-            print('TEST FAIL : checkImgServiceLogo')
+            print('TEST FAIL : check_img_logo')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkImgServiceLogo')
+            print('TEST PASS : check_img_logo')
 
-    def test_checkBtnCreateJob(self): # [Create Job]버튼 출력 및 링크 이동 확인
+    def test_check_btn_createJob(self): # [Create Job]버튼 출력 및 링크 이동 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -61,14 +61,14 @@ class Gnb(unittest.TestCase):
             self.assertEqual("Create Job", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Channels'])[1]/following::h3[1]").text)
         except:
-            print('TEST FAIL : checkBtnCreateJob')
+            print('TEST FAIL : check_btn_createJob')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkBtnCreateJob')
+            print('TEST PASS : check_btn_createJob')
 
-    def test_checkProject(self): # Project 정보 출력 및 링크 이동 확인
+    def test_check_project(self): # Project 정보 출력 및 링크 이동 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -100,14 +100,14 @@ class Gnb(unittest.TestCase):
             self.assertEqual("Demo", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Megazone'])[1]/following::span[1]").text)
         except:
-            print('TEST FAIL : checkProject')
+            print('TEST FAIL : check_project')
             logging.basicConfig(stream=sys.stderr, level=logging.error)
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkProject')
+            print('TEST PASS : check_project')
 
-    def test_checkUser(self): # User 정보 출력 및 링크 이동 확인
+    def test_check_user(self): # User 정보 출력 및 링크 이동 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -121,15 +121,15 @@ class Gnb(unittest.TestCase):
             self.assertEqual("mcmtestowner@gmail.com", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Megazone (Owner)'])[1]/following::small[1]").text)
         except:
-            print('TEST FAIL : checkUser')
+            print('TEST FAIL : check_user')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkUser')
+            print('TEST PASS : check_user')
 
-    def test_clickBtnSignOut(self): # Sign Out 확인
+    def test_click_btn_signOut(self): # Sign Out 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -141,15 +141,15 @@ class Gnb(unittest.TestCase):
             self.assertEqual("Welcome!", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='You need to sign in a Megazone Accounts account to get started.'])[1]/preceding::h4[1]").text)
         except:
-            print('TEST FAIL : clickBtnSignOut')
+            print('TEST FAIL : click_btn_signOut')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : clickBtnSignOut')
+            print('TEST PASS : click_btn_signOut')
 
-    def test_clickBtnAdmin(self): # Admin 버튼 출력 및 이동 확인
+    def test_click_btn_admin(self): # Admin 버튼 출력 및 이동 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -179,15 +179,15 @@ class Gnb(unittest.TestCase):
             self.driver.find_element_by_xpath("//div[@class='menu-type menu-type-project']")
             # self.assertEqual("Project manager", driver.find_element_by_xpath("//div[@class='menu-type menu-type-project']").text)
         except:
-            print('TEST FAIL : clickBtnAdmin')
+            print('TEST FAIL : click_btn_admin')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : clickBtnAdmin')
+            print('TEST PASS : click_btn_admin')
 
-    def test_clickBtnDownloadApps(self):  # Downlaod Apps 버튼 출력 및 이동 확인
+    def test_click_btn_downloadApps(self):  # Downlaod Apps 버튼 출력 및 이동 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -207,20 +207,20 @@ class Gnb(unittest.TestCase):
             self.assertEqual("Download Apps", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Download Apps'])[1]/following::h5[1]").text)
         except:
-            print('TEST FAIL : clickBtnDownloadApps')
+            print('TEST FAIL : click_btn_downloadApps')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_clickBtnDownloadApps-%s.png' % now)
         else:
-            print('TEST PASS : clickBtnDownloadApps')
+            print('TEST PASS : click_btn_downloadApps')
 
-    def test_checkDownloadAppsPopUp(self): # Downlaod Apps 팝업 구성요소 및 기능 확인
+    def test_check_btn_downloadAppsPopUp(self): # Downlaod Apps 팝업 구성요소 및 기능 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
             staging.Chrome.CORE.common.move_main(self) # Project Main page로 이동하는 공통 모듈 호출
-            Gnb.clickBtnDownloadApps(self) # Download Apps 팝업을 호출하는 함수 호출
+            Gnb.click_btn_downloadApps(self) # Download Apps 팝업을 호출하는 함수 호출
             time.sleep(3)
             # DownloadApps 팝업에서 Title 확인
             self.assertEqual("Download Apps", driver.find_element_by_xpath(
@@ -270,15 +270,15 @@ class Gnb(unittest.TestCase):
             # DownloadApps 팝업 닫혔는지 확인
             #
         except:
-            print('TEST FAIL : check_checkDownloadAppsPopUp')
+            print('TEST FAIL : check_btn_downloadAppsPopUp')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/check_checkDownloadAppsPopUp-%s.png' % now)
         else:
-            print('TEST PASS : check_checkDownloadAppsPopUp')
+            print('TEST PASS : check_btn_downloadAppsPopUp')
 
-    def test_checkMyJobs(self): # My Jobs 버튼 출력 및 이동 확인
+    def test_check_myJobs(self): # My Jobs 버튼 출력 및 이동 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -303,13 +303,13 @@ class Gnb(unittest.TestCase):
             self.driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Download Apps'])[1]/following::a[1]")
         except:
-            print('TEST FAIL : checkMyJobs')
+            print('TEST FAIL : check_myJobs')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/checkMyJobs-%s.png' % now)
         else:
-            print('TEST PASS : checkMyJobs')
+            print('TEST PASS : check_myJobs')
 
     def tearDown(self):
         self.driver.close()
@@ -318,15 +318,15 @@ class Gnb(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(Gnb('test_checkImgServiceLogo'))
-    suite.addTest(Gnb('test_checkBtnCreateJob'))
-    suite.addTest(Gnb('test_checkProject'))
-    suite.addTest(Gnb('test_checkUser'))
-    suite.addTest(Gnb('test_clickBtnSignOut'))
-    suite.addTest(Gnb('test_clickBtnAdmin'))
-    suite.addTest(Gnb('test_clickBtnDownloadApps'))
-    suite.addTest(Gnb('test_checkDownloadAppsPopUp'))
-    suite.addTest(Gnb('test_checkMyJobs'))
+    suite.addTest(Gnb('test_check_img_logo'))
+    suite.addTest(Gnb('test_check_btn_createJob'))
+    suite.addTest(Gnb('test_check_project'))
+    suite.addTest(Gnb('test_check_user'))
+    suite.addTest(Gnb('test_click_btn_signOut'))
+    suite.addTest(Gnb('test_click_btn_admin'))
+    suite.addTest(Gnb('test_click_btn_downloadApps'))
+    suite.addTest(Gnb('test_check_btn_downloadAppsPopUp'))
+    suite.addTest(Gnb('test_check_myJobs'))
     return suite
 
 if __name__ == "__main__":
