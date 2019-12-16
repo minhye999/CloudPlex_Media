@@ -12,7 +12,7 @@ class test(unittest.TestCase):
 
     @classmethod
     def setUp(self):
-        self.driver = webdriver.Chrome(executable_path="../../venv/webdriver/chromedriver.exe")
+        self.driver = webdriver.Chrome(executable_path="../../../venv/webdriver/chromedriver.exe")
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
 ##################################################################################################################

@@ -12,7 +12,7 @@ class Fnb(unittest.TestCase):
 
     @classmethod
     def setUp(self):
-        self.driver = webdriver.Chrome(executable_path="../../venv/webdriver/chromedriver.exe")
+        self.driver = webdriver.Chrome(executable_path="../../../venv/webdriver/chromedriver.exe")
         #self.driver = webdriver.Firefox(executable_path='../venv/webdriver/geckodriver.exe')
         #self.driver = webdriver.edge(executable_path='../venv/webdriver/msedgedriver.exe')
         #self.driver = webdriver.Ie(executable_path='../venv/webdriver/iedriver.exe')
