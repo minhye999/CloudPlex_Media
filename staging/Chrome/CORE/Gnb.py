@@ -25,16 +25,15 @@ class Gnb(unittest.TestCase):
         try:
             staging.Chrome.CORE.common.move_main(self) # Project Main page로 이동하는 공통 모듈 호출
             # Service Logo 확인
-
+            driver.find_element_by_xpath("//img[@alt='logo']")
             # Jobs Page로 이동
             driver.find_element_by_link_text("Jobs").click()
             time.sleep(3)
-            # Service Logo 클릭
+            # Brand Logo 클릭
             driver.find_element_by_xpath("//img[@alt='logo']").click()
             time.sleep(3)
             # Main Page로 이동 확인 (Create Jobs Title 확인)
-            self.assertEqual("Create Job", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Channels'])[1]/following::h3[1]").text)
+            self.assertEqual("Create Job", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Channels'])[1]/following::h3[1]").text)
         except:
             print('TEST FAIL : check_img_logo')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
