@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from selenium import webdriver
-import unittest
-import HtmlTestRunner
 import sys
 import logging
 import time
 from datetime import datetime
-import Test_Staging.Common
+from selenium import webdriver
+import unittest
+import HtmlTestRunner
+import staging.Chrome.CORE.common
 
 class PopUp_PipelineDetail(unittest.TestCase):
 
@@ -23,7 +23,7 @@ class PopUp_PipelineDetail(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
             # [Create Job] 메뉴로 이동
             driver.find_element_by_link_text("Create Job").click()
             # [Pipeline Detail] 버튼 클릭
@@ -37,7 +37,7 @@ class PopUp_PipelineDetail(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkTitle')
 
@@ -45,7 +45,7 @@ class PopUp_PipelineDetail(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
             # [Create Job] 메뉴로 이동
             driver.find_element_by_link_text("Create Job").click()
             # [Pipeline Detail] 버튼 클릭
@@ -111,7 +111,7 @@ class PopUp_PipelineDetail(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkViewMode')
 
@@ -127,5 +127,5 @@ def suite():
     return suite
 
 if __name__ == "__main__":
-    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Reports")
+    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Reports")
     runner.run(suite())

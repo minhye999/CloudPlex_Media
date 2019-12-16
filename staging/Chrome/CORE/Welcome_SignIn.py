@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from selenium import webdriver
-import unittest
-import HtmlTestRunner
 import sys
 import logging
 import time
 from datetime import datetime
-import Test_Staging.Common
+from selenium import webdriver
+import unittest
+import HtmlTestRunner
+import staging.Chrome.CORE.common
+
 
 class Welcome_SignIn(unittest.TestCase):
 
@@ -34,7 +35,7 @@ class Welcome_SignIn(unittest.TestCase):
         except:
             print('TEST FAIL : signIn')
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : signIn')
 
@@ -53,7 +54,7 @@ class Welcome_SignIn(unittest.TestCase):
         except:
             print('TEST FAIL : signInAfter')
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : signInAfter')
 
@@ -69,5 +70,5 @@ def suite():
     return suite
 
 if __name__ == "__main__":
-    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Reports")
+    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Reports")
     runner.run(suite())

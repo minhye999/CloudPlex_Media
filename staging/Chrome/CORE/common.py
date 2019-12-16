@@ -1,7 +1,8 @@
 import time
 
-def signInMegazone(self):
-    print("Calling up a signInMegazone Module")
+# 로그인
+def signin_Megazone(self):
+    print("Calling up a signin_Megazone Module") # 해당 모듈 호출되었음을 안내
     driver = self.driver
     driver.find_element_by_xpath('//*[@id="root"]/div/div/div/div/div/div/div[2]/form/div[1]/a').click()
     driver.find_element_by_xpath('//*[@id="username"]').send_keys('mcmtestowner@gmail.com')
@@ -12,8 +13,9 @@ def signInMegazone(self):
         u"(.//*[normalize-space(text()) and normalize-space(.)='로그인'])[1]/following::strong[1]").click()
     time.sleep(5)
 
-def moveMainPage(self):
-    print("Calling up a moveMainPage Module")
+# 로그인 > Project 선택 > Project 메인 페이지로 이동
+def move_main(self):
+    print("Calling up a move_main Module") # 해당 모듈 호출되었음을 안내
     driver = self.driver
     driver.find_element_by_xpath('//*[@id="root"]/div/div/div/div/div/div/div[2]/form/div[1]/a').click()
     driver.find_element_by_xpath('//*[@id="username"]').send_keys('mcmtestowner@gmail.com')

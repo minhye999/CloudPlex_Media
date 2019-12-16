@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-from selenium import webdriver
-import unittest
-import HtmlTestRunner
 import sys
 import logging
 import time
 from datetime import datetime
-import Test_Staging.Common
+from selenium import webdriver
+import unittest
+import HtmlTestRunner
+import staging.Chrome.CORE.common
 
-class Project_Select(unittest.TestCase):
+class ProjectSelect(unittest.TestCase):
 
     @classmethod
     def setUp(self):
@@ -23,7 +23,7 @@ class Project_Select(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.signInMegazone(self) # Megazone SignIn하는 공통 모듈 호출
+            staging.Chrome.CORE.common.signInMegazone(self) # Megazone SignIn하는 공통 모듈 호출
             # 사용자 이름 확인
             self.assertEqual("Megazone (Owner)", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='mcmtestowner@gmail.com'])[1]/preceding::em[1]").text)
@@ -36,7 +36,7 @@ class Project_Select(unittest.TestCase):
         except:
             print('TEST FAIL : checkUser')
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkUser')
 
@@ -44,7 +44,7 @@ class Project_Select(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.signInMegazone(self) # Megazone SignIn하는 공통 모듈 호출
+            staging.Chrome.CORE.common.signInMegazone(self) # Megazone SignIn하는 공통 모듈 호출
             # Administration 아이콘 확인
             self.assertEqual("Continuum", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Administration'])[1]/following::div[4]").text)
@@ -63,7 +63,7 @@ class Project_Select(unittest.TestCase):
             print('TEST FAIL : checkProject')
             logging.basicConfig(stream=sys.stderr, level=logging.error)
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkProject')
 
@@ -71,7 +71,7 @@ class Project_Select(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.signInMegazone(self) # Megazone SignIn하는 공통 모듈 호출
+            staging.Chrome.CORE.common.signInMegazone(self) # Megazone SignIn하는 공통 모듈 호출
             # [...]아이콘 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div/ul/li/div/button/i").click()
@@ -99,7 +99,7 @@ class Project_Select(unittest.TestCase):
         except:
             print('TEST FAIL : setAsDefault')
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : setAsDefault')
 
@@ -107,7 +107,7 @@ class Project_Select(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.signInMegazone(self) # Megazone SignIn하는 공통 모듈 호출
+            staging.Chrome.CORE.common.signInMegazone(self) # Megazone SignIn하는 공통 모듈 호출
             # [...]아이콘 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div/ul/li/div/button/i").click()
@@ -139,7 +139,7 @@ class Project_Select(unittest.TestCase):
         except:
             print('TEST FAIL : unsetAsDefault')
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : unsetAsDefault')
 
@@ -150,12 +150,12 @@ class Project_Select(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(Project_Select('test_checkUser'))
-    suite.addTest(Project_Select('test_checkProject'))
-    suite.addTest(Project_Select('test_setAsDefault'))
-    suite.addTest(Project_Select('test_unsetAsDefault'))
+    suite.addTest(ProjectSelect('test_checkUser'))
+    suite.addTest(ProjectSelect('test_checkProject'))
+    suite.addTest(ProjectSelect('test_setAsDefault'))
+    suite.addTest(ProjectSelect('test_unsetAsDefault'))
     return suite
 
 if __name__ == "__main__":
-    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Reports")
+    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Reports")
     runner.run(suite())

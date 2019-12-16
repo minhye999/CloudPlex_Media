@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-from selenium import webdriver
-import unittest
-import HtmlTestRunner
 import sys
 import logging
 import time
 from datetime import datetime
-import Test_Staging.Common
+from selenium import webdriver
+import unittest
+import HtmlTestRunner
+import staging.Chrome.CORE.common
 
-class GNB(unittest.TestCase):
+class Gnb(unittest.TestCase):
 
     @classmethod
     def setUp(self):
@@ -23,7 +23,7 @@ class GNB(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.moveMainPage(self) # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.moveMainPage(self) # Project Main page로 이동하는 공통 모듈 호출
             # Service Logo 확인
 
             # Jobs Page로 이동
@@ -38,7 +38,7 @@ class GNB(unittest.TestCase):
         except:
             print('TEST FAIL : checkImgServiceLogo')
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkImgServiceLogo')
 
@@ -46,7 +46,7 @@ class GNB(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.moveMainPage(self) # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.moveMainPage(self) # Project Main page로 이동하는 공통 모듈 호출
             # [Create Job]버튼 확인
             self.assertEqual("+ Create job", driver.find_element_by_link_text("+ Create job").text)
             # Jobs Page로 이동
@@ -62,7 +62,7 @@ class GNB(unittest.TestCase):
         except:
             print('TEST FAIL : checkBtnCreateJob')
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkBtnCreateJob')
 
@@ -70,7 +70,7 @@ class GNB(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Project 아이콘 확인
             self.assertEqual("Megazone", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Create job'])[1]/following::strong[1]").text)
@@ -101,7 +101,7 @@ class GNB(unittest.TestCase):
             print('TEST FAIL : checkProject')
             logging.basicConfig(stream=sys.stderr, level=logging.error)
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkProject')
 
@@ -109,7 +109,7 @@ class GNB(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.moveMainPage(self) # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.moveMainPage(self) # Project Main page로 이동하는 공통 모듈 호출
             # 사용자 아이콘 확인
             self.assertEqual("sprite sprite-user", driver.find_element_by_class_name('sprite sprite-user').text)
             # 사용자 이름 확인
@@ -123,7 +123,7 @@ class GNB(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : checkUser')
 
@@ -131,7 +131,7 @@ class GNB(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.moveMainPage(self) # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.moveMainPage(self) # Project Main page로 이동하는 공통 모듈 호출
             # [Sign Out]버튼 클릭
             driver.find_element_by_xpath("//div[@id='root']/div/nav/div[2]/div/ul/li[3]/div/button/i").click()
             time.sleep(3)
@@ -143,7 +143,7 @@ class GNB(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : clickBtnSignOut')
 
@@ -151,7 +151,7 @@ class GNB(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
             # [Admin]버튼 확인 -> 이슈로 div class 체크
             self.driver.find_element_by_xpath("//div[@class='admin-menu-toggle ']")
             # [Admin]버튼 클릭
@@ -181,7 +181,7 @@ class GNB(unittest.TestCase):
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                'F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+                'F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
             print('TEST PASS : clickBtnAdmin')
 
@@ -189,7 +189,7 @@ class GNB(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.moveMainPage(self)  # Project Main page로 이동하는 공통 모듈 호출
             # [Download Apps]버튼 확인 -> xpath 아예 안직힘 -> div class로 체크 (근데 왜 명칭이 Admin menu 인지 ^^;)
             self.driver.find_element_by_xpath("//div[@class='admin-menu-toggle ']")
             # [Download Apps]버튼 클릭
@@ -214,7 +214,7 @@ class GNB(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.moveMainPage(self) # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.moveMainPage(self) # Project Main page로 이동하는 공통 모듈 호출
             GNB.clickBtnDownloadApps(self) # Download Apps 팝업을 호출하는 함수 호출
             time.sleep(3)
             # DownloadApps 팝업에서 Title 확인
@@ -274,7 +274,7 @@ class GNB(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            Test_Staging.Common.moveMainPage(self) # Project Main page로 이동하는 공통 모듈 호출
+            staging.Chrome.CORE.common.moveMainPage(self) # Project Main page로 이동하는 공통 모듈 호출
             # [My Jobs]버튼 확인
             self.driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Download Apps'])[1]/following::a[1]")
             # [My Jobs]버튼 클릭
@@ -307,17 +307,17 @@ class GNB(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(GNB('test_checkImgServiceLogo'))
-    suite.addTest(GNB('test_checkBtnCreateJob'))
-    suite.addTest(GNB('test_checkProject'))
-    suite.addTest(GNB('test_checkUser'))
-    suite.addTest(GNB('test_clickBtnSignOut'))
-    suite.addTest(GNB('test_clickBtnAdmin'))
-    suite.addTest(GNB('test_clickBtnDownloadApps'))
-    suite.addTest(GNB('test_checkDownloadAppsPopUp'))
-    suite.addTest(GNB('test_checkMyJobs'))
+    suite.addTest(Gnb('test_checkImgServiceLogo'))
+    suite.addTest(Gnb('test_checkBtnCreateJob'))
+    suite.addTest(Gnb('test_checkProject'))
+    suite.addTest(Gnb('test_checkUser'))
+    suite.addTest(Gnb('test_clickBtnSignOut'))
+    suite.addTest(Gnb('test_clickBtnAdmin'))
+    suite.addTest(Gnb('test_clickBtnDownloadApps'))
+    suite.addTest(Gnb('test_checkDownloadAppsPopUp'))
+    suite.addTest(Gnb('test_checkMyJobs'))
     return suite
 
 if __name__ == "__main__":
-    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Reports")
+    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Reports")
     runner.run(suite())

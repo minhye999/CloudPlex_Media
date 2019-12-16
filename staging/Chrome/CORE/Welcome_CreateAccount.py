@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from selenium import webdriver
-import unittest
-import HtmlTestRunner
 import sys
 import logging
 import time
 from datetime import datetime
-import Test_Staging.Common
+from selenium import webdriver
+import unittest
+import HtmlTestRunner
+import staging.Chrome.CORE.common
+
 
 class Welcome_CreateAccount(unittest.TestCase):
 
@@ -28,7 +29,7 @@ class Welcome_CreateAccount(unittest.TestCase):
         except:
             print('TEST FAIL : Create account')
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_CreateAccount-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_CreateAccount-%s.png' % now)
         else:
             print('TEST PASS : Create account')
 
@@ -46,5 +47,5 @@ def suite():
     return suite
 
 if __name__ == "__main__":
-    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Reports")
+    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Reports")
     runner.run(suite())

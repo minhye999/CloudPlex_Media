@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from selenium import webdriver
-import unittest
-import HtmlTestRunner
 import sys
 import logging
 import time
 from datetime import datetime
-import Test_Staging.Common
+from selenium import webdriver
+import unittest
+import HtmlTestRunner
+import staging.Chrome.CORE.common
+
 
 class Welcome(unittest.TestCase):
 
@@ -28,7 +29,7 @@ class Welcome(unittest.TestCase):
         except:
             print('TEST FAIL : checkBrowserTitle')
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_Title-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_Title-%s.png' % now)
         else:
             print('TEST PASS : checkBrowserTitle')
 
@@ -41,7 +42,7 @@ class Welcome(unittest.TestCase):
         except:
             print('TEST FAIL : checkBrandLogo')
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_Title-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_Title-%s.png' % now)
         else:
             print('TEST PASS : checkBrandLogo')
 
@@ -55,7 +56,7 @@ class Welcome(unittest.TestCase):
         except:
             print('TEST FAIL : Welcome!')
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_Welcome-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_Welcome-%s.png' % now)
         else:
             print('TEST PASS : Welcome!')
 
@@ -69,7 +70,7 @@ class Welcome(unittest.TestCase):
         except:
             print('TEST FAIL : Sign in with Megazone Accounts')
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_Sign-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_Sign-%s.png' % now)
         else:
             print('TEST PASS : Sign in with Megazone Accounts')
 
@@ -82,7 +83,7 @@ class Welcome(unittest.TestCase):
         except:
             print('TEST FAIL : Create account')
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Screenshots/test_CreateAccount-%s.png' % now)
+            self.driver.save_screenshot('F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Screenshots/test_CreateAccount-%s.png' % now)
         else:
             print('TEST PASS : Create account')
 
@@ -101,5 +102,5 @@ def suite():
     return suite
 
 if __name__ == "__main__":
-    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/Test_Staging/Test_Results/Reports")
+    runner = HtmlTestRunner.HTMLTestRunner(output="F:/PyCharm/Project/CloudPlex_Media/staging/Test_Results/Reports")
     runner.run(suite())
