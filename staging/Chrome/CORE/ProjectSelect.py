@@ -19,7 +19,7 @@ class ProjectSelect(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
 
-    def test_checkUser(self): # User 정보 확인
+    def test_check_user(self): # User 정보 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -34,14 +34,14 @@ class ProjectSelect(unittest.TestCase):
             self.assertEqual("Hi, Megazone (Owner)", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='mcmtestowner@gmail.com'])[1]/following::h1[1]").text)
         except:
-            print('TEST FAIL : checkUser')
+            print('TEST FAIL : check_user')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkUser')
+            print('TEST PASS : check_user')
 
-    def test_checkProject(self): # Project 정보 확인
+    def test_check_project(self): # Project 정보 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -61,14 +61,14 @@ class ProjectSelect(unittest.TestCase):
             # Project 이동 아이콘 확인 (Continuum)
             #self.assertEqual("Continuummz-cm-v1", driver.find_element_by_link_text("Continuummz-cm-v1").text)
         except Exception as e:
-            print('TEST FAIL : checkProject')
+            print('TEST FAIL : check_project')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkProject')
+            print('TEST PASS : check_project')
 
-    def test_setAsDefault(self): # Default Project 설정 기능 확인
+    def test_set_asDefault(self): # Default Project 설정 기능 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -98,14 +98,14 @@ class ProjectSelect(unittest.TestCase):
             self.assertEqual("Continuum", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Megazone'])[1]/following::span[1]").text)
         except:
-            print('TEST FAIL : setAsDefault')
+            print('TEST FAIL : set_asDefault')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : setAsDefault')
+            print('TEST PASS : set_asDefault')
 
-    def test_unsetAsDefault(self): # Default Project 설정 해제 기능 확인
+    def test_unset_asDefault(self): # Default Project 설정 해제 기능 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -139,12 +139,12 @@ class ProjectSelect(unittest.TestCase):
             self.assertEqual("mz-cm-v1", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Continuum'])[1]/following::p[1]").text)
         except:
-            print('TEST FAIL : unsetAsDefault')
+            print('TEST FAIL : unset_asDefault')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : unsetAsDefault')
+            print('TEST PASS : unset_asDefault')
 
     def tearDown(self):
         self.driver.close()
@@ -153,10 +153,10 @@ class ProjectSelect(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(ProjectSelect('test_checkUser'))
-    suite.addTest(ProjectSelect('test_checkProject'))
-    suite.addTest(ProjectSelect('test_setAsDefault'))
-    suite.addTest(ProjectSelect('test_unsetAsDefault'))
+    suite.addTest(ProjectSelect('test_check_user'))
+    suite.addTest(ProjectSelect('test_check_project'))
+    suite.addTest(ProjectSelect('test_set_asDefault'))
+    suite.addTest(ProjectSelect('test_unset_asDefault'))
     return suite
 
 if __name__ == "__main__":

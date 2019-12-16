@@ -19,7 +19,7 @@ class Fnb(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
 
-    def test_checkLinkTerms(self):  # Terms & Conditions 링크 확인 및 이동
+    def test_check_link_terms(self):  # Terms & Conditions 링크 확인 및 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -32,15 +32,15 @@ class Fnb(unittest.TestCase):
             # Terms & Conditions 페이지 이동 (새창) http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/policy
             #
         except:
-            print('TEST FAIL : checkLinkTerms')
+            print('TEST FAIL : check_link_terms')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkLinkTerms')
+            print('TEST PASS : check_link_terms')
 
-    def test_checkCopyright(self):  # Copyright 확인 및 Megazone Corp 이동
+    def test_check_copyright(self):  # Copyright 확인 및 Megazone Corp 이동
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -55,13 +55,13 @@ class Fnb(unittest.TestCase):
             # Megazone Corp.으로 페이지 이동 (새창) https://www.mz.co.kr/
             #
         except:
-            print('TEST FAIL : checkCopyright')
+            print('TEST FAIL : check_copyright')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
                 '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : checkCopyright')
+            print('TEST PASS : check_copyright')
 
     def tearDown(self):
         self.driver.close()
@@ -70,8 +70,8 @@ class Fnb(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(Fnb('test_checkLinkTerms'))
-    suite.addTest(Fnb("test_checkCopyright"))
+    suite.addTest(Fnb('test_check_link_terms'))
+    suite.addTest(Fnb("test_check_copyright"))
     return suite
 
 if __name__ == "__main__":
