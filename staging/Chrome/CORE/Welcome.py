@@ -26,12 +26,12 @@ class Welcome(unittest.TestCase):
             # Web page Browser Title 출력 확인
             self.assertEqual("CloudPlex Media", driver.title)
         except:
-            print('TEST FAIL : check_title')
+            print('TEST FAIL : test_check_title')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_Title-%s.png' % now)
         else:
-            print('TEST PASS : check_title')
+            print('TEST PASS : test_check_title')
 
     # Brand Logo 확인
     def test_check_logo(self):
@@ -41,12 +41,12 @@ class Welcome(unittest.TestCase):
             # Brand Logo 출력 확인
             self.driver.find_element_by_class_name("brand-logo")
         except:
-            print('TEST FAIL : check_logo')
+            print('TEST FAIL : test_check_logo')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_Title-%s.png' % now)
+            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_check_logo-%s.png' % now)
         else:
-            print('TEST PASS : check_logo')
+            print('TEST PASS : test_check_logo')
 
     # Welcome Text 확인
     def test_check_welcome(self):
@@ -57,12 +57,12 @@ class Welcome(unittest.TestCase):
             self.assertEqual("Welcome!", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='You need to sign in a Megazone Accounts account to get started.'])[1]/preceding::h4[1]").text)
         except:
-            print('TEST FAIL : check_welcome')
+            print('TEST FAIL : test_check_welcome')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_Welcome-%s.png' % now)
+            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_check_welcome-%s.png' % now)
         else:
-            print('TEST PASS : check_welcome')
+            print('TEST PASS : test_check_welcome')
 
     # Sign in Button 출력 및 이동 확인
     def test_check_btn_signIn(self):
@@ -94,12 +94,12 @@ class Welcome(unittest.TestCase):
             self.assertEqual("Hi, Megazone (Owner)", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='mcmtestowner@gmail.com'])[1]/following::h1[1]").text)
         except:
-            print('TEST FAIL : check_btn_signIn')
+            print('TEST FAIL : test_check_btn_signIn')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_Sign-%s.png' % now)
+            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_check_btn_signIn-%s.png' % now)
         else:
-            print('TEST PASS : check_btn_signIn')
+            print('TEST PASS : test_check_btn_signIn')
 
     # Create Account Link 확인
     def test_check_link_createAccount(self):
@@ -113,12 +113,12 @@ class Welcome(unittest.TestCase):
             # 이동한 페이지 확인 (Title)
             # 이슈있어 확인불가
         except:
-            print('TEST FAIL : check_link_createAccount')
+            print('TEST FAIL : test_check_link_createAccount')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_CreateAccount-%s.png' % now)
+            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_check_link_createAccount-%s.png' % now)
         else:
-            print('TEST PASS : check_link_createAccount')
+            print('TEST PASS : test_check_link_createAccount')
 
     def tearDown(self):
         self.driver.close()
