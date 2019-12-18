@@ -28,3 +28,42 @@ def move_main(self):
     # Project로 이동
     driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Administration'])[1]/following::div[4]").click()
     time.sleep(5)
+
+# Project Admin > Settings > Transcoding > Create origin asset : Enable 설정
+def test_settings_transcoding_origin_enable(self):
+    print("Calling up a settings_transcoding_origin_enable Module")  # 해당 모듈 호출되었음을 안내
+    driver = self.driver
+    move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+    # [Admin]버튼 클릭
+    driver.find_element_by_xpath("//div[@id='root']/div/nav/div[2]/div/ul/li[4]/div/div/button/i").click()
+    # Admin 메뉴에서 [Project manager] 메뉴 선택
+    driver.find_element_by_link_text("Project manager").click()
+    time.sleep(3)
+    # [Transcoding]탭 클릭
+    driver.find_element_by_link_text("Transcoding").click()
+    # [Create origin asset] : [Enable] 선택
+    # driver.find_element_by_xpath("//input[@type='radio']").click()
+    driver.find_element_by_xpath("(//input[@type='radio'])[2]").click()
+    # [Save]버튼 클릭
+    driver.find_element_by_xpath(
+        "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
+    time.sleep(3)
+
+# Project Admin > Settings > Transcoding > Create origin asset : Disable 설정
+def test_settings_transcoding_origin_disable(self):
+    print("Calling up a settings_transcoding_origin_disable Module")  # 해당 모듈 호출되었음을 안내
+    driver = self.driver
+    move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+    # [Admin]버튼 클릭
+    driver.find_element_by_xpath("//div[@id='root']/div/nav/div[2]/div/ul/li[4]/div/div/button/i").click()
+    # Admin 메뉴에서 [Project manager] 메뉴 선택
+    driver.find_element_by_link_text("Project manager").click()
+    time.sleep(3)
+    # [Transcoding]탭 클릭
+    driver.find_element_by_link_text("Transcoding").click()
+    # [Create origin asset] : [Disable] 선택
+    driver.find_element_by_xpath("(//input[@type='radio'])[2]").click()
+    # [Save]버튼 클릭
+    driver.find_element_by_xpath(
+        "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
+    time.sleep(3)

@@ -32,7 +32,8 @@ class Settings_Transcoding(unittest.TestCase):
             # [Transcoding]탭 클릭
             driver.find_element_by_link_text("Transcoding").click()
             # [Create origin asset] : [Enable] 선택
-            driver.find_element_by_xpath("//input[@type='radio']").click()
+            #driver.find_element_by_xpath("//input[@type='radio']").click()
+            driver.find_element_by_xpath("(//input[@type='radio'])[2]").click()
             # [Save]버튼 클릭
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()

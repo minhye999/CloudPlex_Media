@@ -7,6 +7,7 @@ from selenium import webdriver
 import unittest
 import HtmlTestRunner
 import staging.Chrome.CORE.common
+import staging.Chrome.ProjectAd.Settings_Transcoding
 
 class CreateJob(unittest.TestCase):
 
@@ -531,23 +532,37 @@ class CreateJob(unittest.TestCase):
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
-            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # 만약 Setting = On 이라면
+            # Project Admin > Settings > Transcoding > Create Origin Asset : Enable 설정
+            #staging.Chrome.ProjectAd.Settings_Transcoding.test_settings_transcoding_origin_enable(self)
+            staging.Chrome.CORE.common.test_settings_transcoding_origin_enable(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # CORE 페이지로 이동
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Administration'])[1]/following::button[1]").click()
+            time.sleep(3)
             # [Create Job] 메뉴로 이동
             driver.find_element_by_link_text("Create Job").click()
-            # 만약 Setting = On 이라면
-            # 만약 Setting = Off 이라면
             # 체크박스 On으로 설정되어있는지 확인
             self.assertEqual("on", driver.find_element_by_id("chkIsCreateOriginAsset").get_attribute("value"))
             '''
             # 체크박스 체크
             driver.find_element_by_id("chkIsCreateOriginAsset").click()
+            '''
+            # 만약 Setting = Off 이라면
+            # Project Admin > Settings > Transcoding > Create Origin Asset : Disable 설정
+            staging.Chrome.CORE.common.test_settings_transcoding_origin_disable(self)
+            # CORE 페이지로 이동
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Administration'])[1]/following::button[1]").click()
+            time.sleep(3)
             # 체크박스 Off로 설정되어있는지 확인
             self.assertEqual("off", driver.find_element_by_id("chkIsCreateOriginAsset").get_attribute("value"))
+            '''
             # 체크박스 체크해제
             driver.find_element_by_id("chkIsCreateOriginAsset").click()
-            '''
             # 안내문구 출력 확인 (Save the transcode origin source as an asset)
             #self.assertEqual("Save the transcode origin source as an asset", driver.find_element_by_xpath("//div[@class='d-flex justify-content-end align-items-center']").text)
+            '''
         except:
             print('TEST FAIL : test_check_originSource')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
