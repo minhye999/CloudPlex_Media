@@ -20,7 +20,7 @@ class PopUp_Local_SelectFiles(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
 
-    def test_check_title(self):  # Breadcrumb 확인
+    def test_check_title(self):  # 팝업 title 및 info 출력 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -63,7 +63,7 @@ class PopUp_Local_SelectFiles(unittest.TestCase):
         else:
             print('TEST PASS : test_check_title')
 
-    def test_check_close(self):  # Breadcrumb 확인
+    def test_check_close(self):  # [Close]버튼 출력 및 동작 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -90,7 +90,7 @@ class PopUp_Local_SelectFiles(unittest.TestCase):
         else:
             print('TEST PASS : test_check_close')
 
-    def test_check_tab(self):  # Breadcrumb 확인
+    def test_check_tab(self):  # Local / S3 Files 탭 출력 및 동작 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -123,7 +123,7 @@ class PopUp_Local_SelectFiles(unittest.TestCase):
         else:
             print('TEST PASS : test_check_tab')
 
-    def test_check_cancel(self):  # Breadcrumb 확인
+    def test_check_cancel(self):  # [Cancel]버튼 출력 및 동작 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -152,7 +152,7 @@ class PopUp_Local_SelectFiles(unittest.TestCase):
         else:
             print('TEST PASS : test_check_cancel')
 
-    def test_check_select(self):  # Breadcrumb 확인
+    def test_check_select(self):  # 파일 Select 기능 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
