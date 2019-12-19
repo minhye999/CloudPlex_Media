@@ -7,16 +7,16 @@ from selenium import webdriver
 import unittest
 import HtmlTestRunner
 import staging.Chrome.CORE.common
-import staging.Chrome.ProjectAd.Settings_Transcoding
+#import staging.Chrome.ProjectAd.Settings_Transcoding
 
 class CreateJob(unittest.TestCase):
 
     @classmethod
     def setUp(self):
         self.driver = webdriver.Chrome(executable_path="../../../venv/webdriver/chromedriver.exe")
-        #self.driver = webdriver.Firefox(executable_path='../venv/webdriver/geckodriver.exe')
-        #self.driver = webdriver.edge(executable_path='../venv/webdriver/msedgedriver.exe')
-        #self.driver = webdriver.Ie(executable_path='../venv/webdriver/iedriver.exe')
+        # self.driver = webdriver.Firefox(executable_path='../venv/webdriver/geckodriver.exe')
+        # self.driver = webdriver.edge(executable_path='../venv/webdriver/msedgedriver.exe')
+        # self.driver = webdriver.Ie(executable_path='../venv/webdriver/iedriver.exe')
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
 
@@ -543,7 +543,7 @@ class CreateJob(unittest.TestCase):
             # [Create Job] 메뉴로 이동
             driver.find_element_by_link_text("Create Job").click()
             # 체크박스 On으로 설정되어있는지 확인
-            self.assertEqual("on", driver.find_element_by_id("chkIsCreateOriginAsset").get_attribute("value"))
+            #self.assertEqual("on", driver.find_element_by_id("chkIsCreateOriginAsset").get_attribute("value"))
             '''
             # 체크박스 체크
             driver.find_element_by_id("chkIsCreateOriginAsset").click()
@@ -556,7 +556,7 @@ class CreateJob(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Administration'])[1]/following::button[1]").click()
             time.sleep(3)
             # 체크박스 Off로 설정되어있는지 확인
-            self.assertEqual("off", driver.find_element_by_id("chkIsCreateOriginAsset").get_attribute("value"))
+            #self.assertEqual("off", driver.find_element_by_id("chkIsCreateOriginAsset").get_attribute("value"))
             '''
             # 체크박스 체크해제
             driver.find_element_by_id("chkIsCreateOriginAsset").click()
@@ -572,23 +572,66 @@ class CreateJob(unittest.TestCase):
         else:
             print('TEST PASS : test_check_originSource')
 
-    def test_startTranscoding(self):  # Profile 상세 구성요소 확인
+    def test_localFile_startTranscoding(self):  # Profile 상세 구성요소 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
             staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # [Create Job] 메뉴로 이동
             driver.find_element_by_link_text("Create Job").click()
-            #
+            # [Local files]버튼 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='- or -'])[1]/following::button[1]").click()
+            # [Add Files]버튼 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Please select a file to add.'])[1]/following::label[1]").click()
+            '''
+            # 파일탐색기에서 파일 선택 (경로:C://사진/test_001.mp4) -> 요기부터 안됨 S3 파일로 테스트해야하나봐
+            driver.find_element_by_id("upload").clear()
+            driver.find_element_by_id("upload").send_keys("C://사진/test_001.mp4")
+            # 파일 추가되고, [Select]버튼 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
+            # [Start Transcoding]버튼 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
+            time.sleep(5)
+            # Job List에 해당 Job 출력 확인 (title 체크)
+            self.assertEqual("test_001.mp4", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::span[1]").text)
+            '''
         except:
-            print('TEST FAIL : test_startTranscoding')
+            print('TEST FAIL : test_localFile_startTranscoding')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.driver.save_screenshot(
-                '../../../staging/Chrome/Test_Results/Screenshots/test_startTranscoding-%s.png' % now)
+                '../../../staging/Chrome/Test_Results/Screenshots/test_localFile_startTranscoding-%s.png' % now)
         else:
-            print('TEST PASS : test_startTranscoding')
+            print('TEST PASS : test_localFile_startTranscoding')
 
+    def test_s3File_startTranscoding(self):  # Profile 상세 구성요소 확인
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # [Create Job] 메뉴로 이동
+            driver.find_element_by_link_text("Create Job").click()
+            # [s3 files]버튼 클릭
+            driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='- or -'])[1]/following::button[2]").click()
+            # s3 경로 입력
+            #
+            # [Add]버튼 클릭
+            #
+            # [Select]버튼 클릭
+            #
+        except:
+            print('TEST FAIL : test_s3File_startTranscoding')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot(
+                '../../../staging/Chrome/Test_Results/Screenshots/test_s3File_startTranscoding-%s.png' % now)
+        else:
+            print('TEST PASS : test_s3File_startTranscoding')
 
     def tearDown(self):
         self.driver.close()
@@ -613,10 +656,9 @@ def suite():
     suite.addTest(CreateJob("test_check_attribution"))
     suite.addTest(CreateJob("test_check_tags"))
     '''
-    suite.addTest(CreateJob("test_check_originSource"))
-    '''
-    suite.addTest(CreateJob("test_startTranscoding"))
-    '''
+    #suite.addTest(CreateJob("test_check_originSource"))
+    suite.addTest(CreateJob("test_localFile_startTranscoding"))
+    #suite.addTest(CreateJob("test_s3File_startTranscoding"))
     return suite
 
 if __name__ == "__main__":
