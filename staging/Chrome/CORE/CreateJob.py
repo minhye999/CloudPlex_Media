@@ -4,6 +4,7 @@ import logging
 import time
 from datetime import datetime
 from selenium import webdriver
+from selenium.webdriver.support.ui import Select
 import unittest
 import HtmlTestRunner
 import staging.Chrome.CORE.common
@@ -616,6 +617,16 @@ class CreateJob(unittest.TestCase):
             staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # [Create Job] 메뉴로 이동
             driver.find_element_by_link_text("Create Job").click()
+            ''' 정말 안된다 ㅜㅜ
+            # Pipeline변경
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='hls with multiple audio manual'])[1]/following::*[name()='svg'][1]").click()
+            #driver.find_element_by_id("react-select-2-option-3").click()
+            #self.driver.find_element_by_xpath('//*[@class="btn btn-outline-dark btn-icon ml-3"]').send_keys('dash, mp4 automatic')
+            #select = Select(driver.find_element_by_class_name(("css-kj6f9i-menu.select2-selection__menu")))
+            driver.find_element_by_xpath('//*[@class="css-1hwfws3 select2-selection__value-container select2-selection__value-container--has-value"]').click('dash, mp4 automatic')
+            #select.select_by_visible_text("dash, mp4 automatic")
+            '''
             # [S3 files]버튼 클릭
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='- or -'])[1]/following::button[2]").click()
@@ -639,7 +650,31 @@ class CreateJob(unittest.TestCase):
             # [Select]버튼 클릭
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
-            time.sleep(3)
+            time.sleep(5)
+            # [Start Transcoding]버튼 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
+            time.sleep(5)
+            # Job List : 파일명 확인 (test_001.mp4)
+            self.assertEqual("test_001.mp4", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='COMPLETE'])[2]/following::span[2]").text)
+            # Job List : 파일 사이즈 확인 (5.82 MB)
+            self.assertEqual("- Total 5.82 MB", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='test_001.mp4'])[1]/following::small[1]").text)
+            # Job List : Job 시작 일시 텍스트 확인 (Created at)
+            self.assertEqual("Created at", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Transcoding complete.'])[1]/following::dt[1]").text)
+            # 6MB 파일이 업로드 > 트랜스코딩되는데 소요되는 시간 = 약 1분 => 60초이므로 대기
+            time.sleep(60)
+            # Job List : 라벨 확인 (COMPLETE)
+            self.assertEqual("COMPLETE", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='CANCELED'])[1]/following::span[4]").text)
+            # Job List : 작업 완료 텍스트 확인 (Transcoding complete)
+            self.assertEqual("Transcoding complete.", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='- Total 5.82 MB'])[1]/following::small[1]").text)
+            # Job List : 작업 완료 일시 텍스트 확인 (Completed at)
+            self.assertEqual("Completed at", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Created at'])[1]/following::dt[1]").text)
         except:
             print('TEST FAIL : test_s3File_startTranscoding')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -673,8 +708,8 @@ def suite():
     suite.addTest(CreateJob("test_check_tags"))
     '''
     #suite.addTest(CreateJob("test_check_originSource"))
-    suite.addTest(CreateJob("test_localFile_startTranscoding"))
-    #suite.addTest(CreateJob("test_s3File_startTranscoding"))
+    #suite.addTest(CreateJob("test_localFile_startTranscoding"))
+    suite.addTest(CreateJob("test_s3File_startTranscoding"))
     return suite
 
 if __name__ == "__main__":

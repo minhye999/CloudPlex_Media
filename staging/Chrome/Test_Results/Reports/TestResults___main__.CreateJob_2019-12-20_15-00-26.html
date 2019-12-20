@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unittest Results</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="text-capitalize">Unittest Results</h2>
+                <p class='attribute'><strong>Start Time: </strong>2019-12-20 15:00:26</p>
+                <p class='attribute'><strong>Duration: </strong>34.30 s</p>
+                <p class='attribute'><strong>Summary: </strong>Total: 1, Pass: 0, Error: 1</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.CreateJob</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_s3File_startTranscoding</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>Calling up a move_main Module
+TEST FAIL : test_s3File_startTranscoding
+Test Done
+</p><p style="color:maroon;">TypeError: Level not an integer or a valid string: <function error at 0x00B7D1D8></p><p style="color:maroon;">Traceback (most recent call last):
+  File "F:/PyCharm/Project/CloudPlex_Media/staging/Chrome/CORE/CreateJob.py", line 626, in test_s3File_startTranscoding
+    driver.find_element_by_xpath('//*[@class="css-1hwfws3 select2-selection__value-container select2-selection__value-container--has-value"]').click('dash, mp4 automatic')
+TypeError: click() takes 1 positional argument but 2 were given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:/PyCharm/Project/CloudPlex_Media/staging/Chrome/CORE/CreateJob.py", line 678, in test_s3File_startTranscoding
+    logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+  File "F:\Python\lib\logging\__init__.py", line 1991, in basicConfig
+    root.setLevel(level)
+  File "F:\Python\lib\logging\__init__.py", line 1409, in setLevel
+    self.level = _checkLevel(level)
+  File "F:\Python\lib\logging\__init__.py", line 197, in _checkLevel
+    raise TypeError("Level not an integer or a valid string: %r" % level)
+TypeError: Level not an integer or a valid string: <function error at 0x00B7D1D8>
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 1, Pass: 0, Error: 1 -- Duration: 34.30 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('td').on('click', '.btn', function(e){
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var $this = $(this);
+                var $nextRow = $this.closest('tr').next('tr');
+                $nextRow.slideToggle("fast");
+                $this.text(function(i, text){
+                    if (text === 'View') {
+                        return 'Hide';
+                    } else {
+                        return 'View';
+                    };
+                });
+            });
+        });
+    </script>
+</body>
+</html
