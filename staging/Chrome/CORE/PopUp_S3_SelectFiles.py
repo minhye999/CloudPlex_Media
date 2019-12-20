@@ -176,6 +176,7 @@ class PopUp_S3_SelectFiles(unittest.TestCase):
             # [Select]버튼 클릭
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
+            time.sleep(3)
             # 팝업 닫히고, Selected Files영역에 선택한 파일의 [S3] 아이콘 출력 확인 -> 아이콘 selenium 안먹음 > class로 확인
             self.driver.find_element_by_xpath('//*[@class="file-type file-s3"]')
             # 팝업 닫히고, Selected Files영역에 선택한 파일의 파일명 출력 확인
@@ -204,10 +205,10 @@ class PopUp_S3_SelectFiles(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    #suite.addTest(PopUp_S3_SelectFiles('test_check_title'))
-    #suite.addTest(PopUp_S3_SelectFiles('test_check_close'))
-    #suite.addTest(PopUp_S3_SelectFiles('test_check_tab'))
-    #suite.addTest(PopUp_S3_SelectFiles('test_check_cancel'))
+    suite.addTest(PopUp_S3_SelectFiles('test_check_title'))
+    suite.addTest(PopUp_S3_SelectFiles('test_check_close'))
+    suite.addTest(PopUp_S3_SelectFiles('test_check_tab'))
+    suite.addTest(PopUp_S3_SelectFiles('test_check_cancel'))
     suite.addTest(PopUp_S3_SelectFiles('test_check_select'))
     return suite
 

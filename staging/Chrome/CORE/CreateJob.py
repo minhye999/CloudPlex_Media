@@ -616,14 +616,30 @@ class CreateJob(unittest.TestCase):
             staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # [Create Job] 메뉴로 이동
             driver.find_element_by_link_text("Create Job").click()
-            # [s3 files]버튼 클릭
-            driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='- or -'])[1]/following::button[2]").click()
-            # s3 경로 입력
-            #
+            # [S3 files]버튼 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='- or -'])[1]/following::button[2]").click()
+            time.sleep(3)
+            # 경로 입력 (s3://mz-cm-stg-transcoding-input/upload/test_001.mp4) -> selenium 안먹으므로 코딩으로 해결
+            # driver.find_element_by_xpath(
+            #    "//input[@value='s3://mz-cm-stg-transcoding-input/upload/test_001.mp4']").clear()
+            # driver.find_element_by_xpath("//input[@value='s3://mz-cm-stg-transcoding-input/upload/test_001.mp4']").send_keys("s3://mz-cm-stg-transcoding-input/upload/test_001.mp4")
+            self.driver.find_element_by_xpath('//*[@class="form-control"]').send_keys(
+                's3://mz-cm-stg-transcoding-input/upload/test_001.mp4')
             # [Add]버튼 클릭
-            #
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Please select a file to add.'])[1]/preceding::button[1]").click()
+            time.sleep(3)
+            # Selected files 영역에 선택한 파일 추가되었음을 확인 : 파일명 출력 확인
+            self.assertEqual("s3://mz-cm-stg-transcoding-input/upload/test_001.mp4", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Add'])[1]/following::span[2]").text)
+            # Selected files 영역에 선택한 파일 추가되었음을 확인 : 파일 사이즈 출력 확인
+            self.assertEqual("- 5.82 MB", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='s3://mz-cm-stg-transcoding-input/upload/test_001.mp4'])[1]/following::span[1]").text)
             # [Select]버튼 클릭
-            #
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
+            time.sleep(3)
         except:
             print('TEST FAIL : test_s3File_startTranscoding')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
