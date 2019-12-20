@@ -132,13 +132,10 @@ class PopUp_S3_SelectFiles(unittest.TestCase):
             # [S3 files]버튼 클릭
             driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='- or -'])[1]/following::button[2]").click()
             # [Cancel]버튼 출력 확인
-            self.assertEqual("Cancel", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Add Files'])[1]/following::button[1]").text)
+            self.assertEqual("Cancel", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Please select a file to add.'])[1]/following::button[1]").text)
             # [Cancel]버튼 클릭
-            # driver.find_element_by_xpath(
-            #    "(.//*[normalize-space(text()) and normalize-space(.)='test_001.mp4'])[1]/following::button[2]").click()
             driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Add Files'])[1]/following::button[1]").click()
+                "(.//*[normalize-space(text()) and normalize-space(.)='Please select a file to add.'])[1]/following::button[1]").click()
             # 팝업닫히고, [S3 files]버튼 클릭하여 팝업 출력 확인
             driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='- or -'])[1]/following::button[2]").click()
         except:
@@ -160,12 +157,37 @@ class PopUp_S3_SelectFiles(unittest.TestCase):
             # [S3 files]버튼 클릭
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='- or -'])[1]/following::button[2]").click()
-            # 경로 입력
+            time.sleep(3)
+            # 경로 입력 (s3://mz-cm-stg-transcoding-input/upload/test_001.mp4) -> selenium 안먹으므로 코딩으로 해결
+            #driver.find_element_by_xpath(
+            #    "//input[@value='s3://mz-cm-stg-transcoding-input/upload/test_001.mp4']").clear()
+            #driver.find_element_by_xpath("//input[@value='s3://mz-cm-stg-transcoding-input/upload/test_001.mp4']").send_keys("s3://mz-cm-stg-transcoding-input/upload/test_001.mp4")
+            self.driver.find_element_by_xpath('//*[@class="form-control"]').send_keys('s3://mz-cm-stg-transcoding-input/upload/test_001.mp4')
             # [Add]버튼 클릭
-            # 선택한 파일 확인
-            # Selected files 영역에 선택한 파일 추가되었음을 확인 : Local 파일 아이콘 출력 확인
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Please select a file to add.'])[1]/preceding::button[1]").click()
+            time.sleep(3)
             # Selected files 영역에 선택한 파일 추가되었음을 확인 : 파일명 출력 확인
+            self.assertEqual("s3://mz-cm-stg-transcoding-input/upload/test_001.mp4", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Add'])[1]/following::span[2]").text)
             # Selected files 영역에 선택한 파일 추가되었음을 확인 : 파일 사이즈 출력 확인
+            self.assertEqual("- 5.82 MB", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='s3://mz-cm-stg-transcoding-input/upload/test_001.mp4'])[1]/following::span[1]").text)
+            # [Select]버튼 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
+            # 팝업 닫히고, Selected Files영역에 선택한 파일의 [S3] 아이콘 출력 확인 -> 아이콘 selenium 안먹음 > class로 확인
+            self.driver.find_element_by_xpath('//*[@class="file-type file-s3"]')
+            # 팝업 닫히고, Selected Files영역에 선택한 파일의 파일명 출력 확인
+            self.assertEqual("test_001.mp4", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Upload rules'])[1]/following::span[4]").text)
+            # 팝업 닫히고, Selected Files영역에 선택한 파일의 파일 사이즈 출력 확인
+            self.assertEqual("- 5.82 MB", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='test_001.mp4'])[1]/following::span[1]").text)
+            # 팝업 닫히고, Selected Files영역에 선택한 파일의 [X]버튼 출력 확인
+            self.assertEqual("remove", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='test_001.mp4'])[1]/following::i[1]").text)
+
         except:
             print('TEST FAIL : test_check_select')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -182,11 +204,11 @@ class PopUp_S3_SelectFiles(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(PopUp_S3_SelectFiles('test_check_title'))
+    #suite.addTest(PopUp_S3_SelectFiles('test_check_title'))
     #suite.addTest(PopUp_S3_SelectFiles('test_check_close'))
     #suite.addTest(PopUp_S3_SelectFiles('test_check_tab'))
-    suite.addTest(PopUp_S3_SelectFiles('test_check_cancel'))
-    #suite.addTest(PopUp_S3_SelectFiles('test_check_select'))
+    #suite.addTest(PopUp_S3_SelectFiles('test_check_cancel'))
+    suite.addTest(PopUp_S3_SelectFiles('test_check_select'))
     return suite
 
 if __name__ == "__main__":
