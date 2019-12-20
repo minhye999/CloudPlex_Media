@@ -7,7 +7,6 @@ from selenium import webdriver
 import unittest
 import HtmlTestRunner
 import staging.Chrome.CORE.common
-#import staging.Chrome.ProjectAd.Settings_Transcoding
 
 class PopUp_S3_SelectFiles(unittest.TestCase):
 
@@ -188,7 +187,6 @@ class PopUp_S3_SelectFiles(unittest.TestCase):
             # 팝업 닫히고, Selected Files영역에 선택한 파일의 [X]버튼 출력 확인
             self.assertEqual("remove", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='test_001.mp4'])[1]/following::i[1]").text)
-
         except:
             print('TEST FAIL : test_check_select')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
