@@ -691,7 +691,6 @@ class CreateJob(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    '''
     suite.addTest(CreateJob('test_check_breadcrumb'))
     suite.addTest(CreateJob("test_check_title"))
     suite.addTest(CreateJob("test_check_pipeline"))
@@ -706,9 +705,8 @@ def suite():
     suite.addTest(CreateJob("test_check_description"))
     suite.addTest(CreateJob("test_check_attribution"))
     suite.addTest(CreateJob("test_check_tags"))
-    '''
-    #suite.addTest(CreateJob("test_check_originSource"))
-    #suite.addTest(CreateJob("test_localFile_startTranscoding"))
+    suite.addTest(CreateJob("test_check_originSource"))
+    suite.addTest(CreateJob("test_localFile_startTranscoding"))
     suite.addTest(CreateJob("test_s3File_startTranscoding"))
     return suite
 
