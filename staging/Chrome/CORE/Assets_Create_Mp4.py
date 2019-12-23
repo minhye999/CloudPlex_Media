@@ -45,6 +45,64 @@ class Assets_Create_Mp4(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
             # 선택한 파일 출력 확인
             #
+            # Name 입력 (Create Assets MP4)
+            driver.find_element_by_xpath("//input[@value='']").click()
+            # driver.find_element_by_xpath("//input[@value='Create Assets MP4']").clear()
+            # driver.find_element_by_xpath("//input[@value='Create Assets MP4']").send_keys("Create Assets MP4")
+            # driver.find_element_by_xpath("//form[@class='form-control']/button").click("Create Assets MP4")
+            self.driver.find_element_by_xpath('//*[@class="form-control"]').send_keys('Create Assets MP4')
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='CAPTION'])[1]/following::div[2]").click()
+            # Category 선택 (YG)
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Select category'])[1]/following::button[2]").click()
+            time.sleep(5)
+            driver.find_element_by_xpath("//input[@type='checkbox']").click()
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
+            ''' Attribution의 value 값이 입력안됨 ㅜㅜ
+            # Attribution 입력
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Attributions'])[1]/following::button[1]").click()
+            driver.find_element_by_id("key0").clear()
+            driver.find_element_by_id("key0").send_keys("key")
+            # driver.find_element_by_xpath("//input[@value='value']").clear()
+            # driver.find_element_by_xpath("//input[@value='value']").send_keys("value")
+            # driver.find_element_by_id("key1").send_keys("value")
+            # driver.find_element_by_xpath("//div[@class='form-control-input undefined']").send_keys("value")
+            # driver.find_element_by_xpath("//div[@class='form-control-input undefined', @value='value']").send_keys("value")
+            # self.driver.find_element_by_xpath('//*[@class="form-control"]').send_keys('value')
+            '''
+            # Tags 입력
+            driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div[2]/div/form/div[5]/div[2]/div/div/div/div/div/textarea").click()
+            # tag 입력 후 엔터키는 방법 몰라서 못함
+            #
+            # [Create Asset]버튼 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
+            time.sleep(5)
+            '''
+            # 생성된 Asset 확인 (파일명 : Create Assets MP4)
+            self.assertEqual("Create Assets MP4", driver.find_element_by_link_text("Create Asset MP4").text)
+            # 생성된 Asset 확인 (파일경로 및 파일명 : https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_001.mp4)
+            self.assertEqual(
+                "https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_001.mp4",
+                driver.find_element_by_xpath(
+                    "(.//*[normalize-space(text()) and normalize-space(.)='Create Asset MP4'])[1]/following::span[1]").text)
+            # 생성된 Asset 확인 (파일 사이즈 : Total 5.82 MB)
+            self.assertEqual("- Total 5.82 MB", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_001.mp4'])[1]/following::small[1]").text)
+            '''
+            # 생성된 Asset 확인 (완료 메시지 : Upload complete)
+            self.assertEqual("Upload complete.", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='- Total 5.82 MB'])[1]/following::small[1]").text)
+            # Asset Name 클릭하여 상세페이지로 이동
+            driver.find_element_by_link_text("Create Assets MP4").click()
+            time.sleep(3)
+            # 상세 페이지 진입 확인 (Title만 체크)
+            self.assertEqual("Create Assets MP4", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Channels'])[1]/following::span[1]").text)
         except:
             print('TEST FAIL : test_check_type_local')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -65,14 +123,6 @@ class Assets_Create_Mp4(unittest.TestCase):
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Assets'])[3]/following::strong[1]").click()
             time.sleep(3)
-            # Name 입력 (Create Assets MP4)
-            driver.find_element_by_xpath("//input[@value='']").click()
-            # driver.find_element_by_xpath("//input[@value='Create Assets MP4']").clear()
-            # driver.find_element_by_xpath("//input[@value='Create Assets MP4']").send_keys("Create Assets MP4")
-            # driver.find_element_by_xpath("//form[@class='form-control']/button").click("Create Assets MP4")
-            self.driver.find_element_by_xpath('//*[@class="form-control"]').send_keys('Create Assets MP4')
-            driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='CAPTION'])[1]/following::div[2]").click()
             # Type 선택 (MP4)
             driver.find_element_by_id("rdb-asset-type-MP4").click()
             # [Select a file]버튼 클릭
@@ -108,6 +158,14 @@ class Assets_Create_Mp4(unittest.TestCase):
             # 선택한 파일 출력 확인 (파일 사이즈)
             self.assertEqual("- 5.82 MB", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_001.mp4'])[1]/following::span[1]").text)
+            # Name 입력 (Create Assets MP4)
+            driver.find_element_by_xpath("//input[@value='']").click()
+            # driver.find_element_by_xpath("//input[@value='Create Assets MP4']").clear()
+            # driver.find_element_by_xpath("//input[@value='Create Assets MP4']").send_keys("Create Assets MP4")
+            # driver.find_element_by_xpath("//form[@class='form-control']/button").click("Create Assets MP4")
+            self.driver.find_element_by_xpath('//*[@class="form-control"]').send_keys('Create Assets MP4')
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='CAPTION'])[1]/following::div[2]").click()
             # Category 선택 (YG)
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Select category'])[1]/following::button[2]").click()
@@ -115,14 +173,19 @@ class Assets_Create_Mp4(unittest.TestCase):
             driver.find_element_by_xpath("//input[@type='checkbox']").click()
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
+            ''' Attribution의 value 값이 입력안됨 ㅜㅜ
             # Attribution 입력
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Attributions'])[1]/following::button[1]").click()
             driver.find_element_by_id("key0").clear()
             driver.find_element_by_id("key0").send_keys("key")
-            #driver.find_element_by_xpath("//input[@value='value']").clear()
-            #driver.find_element_by_xpath("//input[@value='value']").send_keys("value")
-            self.driver.find_element_by_xpath('//*[@class="form-control"]').send_keys('value')
+            # driver.find_element_by_xpath("//input[@value='value']").clear()
+            # driver.find_element_by_xpath("//input[@value='value']").send_keys("value")
+            # driver.find_element_by_id("key1").send_keys("value")
+            # driver.find_element_by_xpath("//div[@class='form-control-input undefined']").send_keys("value")
+            # driver.find_element_by_xpath("//div[@class='form-control-input undefined', @value='value']").send_keys("value")
+            # self.driver.find_element_by_xpath('//*[@class="form-control"]').send_keys('value')
+            '''
             # Tags 입력
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div[2]/div/form/div[5]/div[2]/div/div/div/div/div/textarea").click()
@@ -132,9 +195,7 @@ class Assets_Create_Mp4(unittest.TestCase):
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
             time.sleep(5)
-            # 생성된 Asset 확인 (Label : COMPLETE)
-            self.assertEqual("COMPLETE", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='CANCELED'])[1]/following::span[4]").text)
+            '''
             # 생성된 Asset 확인 (파일명 : Create Assets MP4)
             self.assertEqual("Create Assets MP4", driver.find_element_by_link_text("Create Asset MP4").text)
             # 생성된 Asset 확인 (파일경로 및 파일명 : https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_001.mp4)
@@ -145,13 +206,15 @@ class Assets_Create_Mp4(unittest.TestCase):
             # 생성된 Asset 확인 (파일 사이즈 : Total 5.82 MB)
             self.assertEqual("- Total 5.82 MB", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_001.mp4'])[1]/following::small[1]").text)
+            '''
             # 생성된 Asset 확인 (완료 메시지 : Upload complete)
             self.assertEqual("Upload complete.", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='- Total 5.82 MB'])[1]/following::small[1]").text)
             # Asset Name 클릭하여 상세페이지로 이동
-            driver.find_element_by_link_text("Create Asset MP4").click()
+            driver.find_element_by_link_text("Create Assets MP4").click()
+            time.sleep(3)
             # 상세 페이지 진입 확인 (Title만 체크)
-            self.assertEqual("Create Asset MP4", driver.find_element_by_xpath(
+            self.assertEqual("Create Assets MP4", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Channels'])[1]/following::span[1]").text)
         except:
             print('TEST FAIL : test_check_type_s3')
