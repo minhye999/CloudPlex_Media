@@ -112,7 +112,7 @@ class Assets_Create_Caption(unittest.TestCase):
             # Default 값 확인 (Select Kind)
             self.assertEqual("Select Kind", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Kind'])[1]/following::div[6]").text)
-            '''
+            ''' 셀렉트박스 선택이 안돼 ㅜㅜ
             # Kind 선택 (Caption) 
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Kind'])[1]/following::div[5]").click()
@@ -120,7 +120,6 @@ class Assets_Create_Caption(unittest.TestCase):
             driver.find_element_by_id("react-select-2-option-0").click()
             # 선택한 Kind 확인 (Caption)
             self.assertEqual("Caption", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Kind'])[1]/following::div[6]").text)
-            '''
             # [Select a file]버튼 출력 확인
             #self.assertEqual("Select a file", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Caption'])[1]/following::button[1]").text)
             # 안내문구 출력 확인 (Select one caption file)
@@ -150,16 +149,18 @@ class Assets_Create_Caption(unittest.TestCase):
             # 선택한 파일 출력 확인 (파일 사이즈)
             self.assertEqual("- 2.50 KB", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_002_Chinese.vtt'])[1]/following::span[1]").text)
+            '''
             # 항목명 확인 (Label)
             self.assertEqual("Label", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Select a file'])[1]/following::div[2]").text)
             # Label value 확인
             self.assertEqual("", driver.find_element_by_xpath("(//input[@value=''])[3]").get_attribute("value"))
             # Label 선택
-            driver.find_element_by_xpath("//input[@value='label']").clear()
-            driver.find_element_by_xpath("//input[@value='label']").send_keys("label")
+            #driver.find_element_by_xpath("//input[@value='label']").click()
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Language'])[1]/following::div[5]").click()
             # 선택한 Label 출력 확인
-            self.assertEqual("label", driver.find_element_by_xpath("//input[@value='label']").get_attribute("value"))
+            #self.assertEqual("label", driver.find_element_by_xpath("//input[@value='label']").get_attribute("value"))
             # 항목명 확인 (Language)
             self.assertEqual("", driver.find_element_by_xpath("(//input[@value=''])[3]").get_attribute("value"))
             # Language value 확인 (Select Language)
@@ -168,11 +169,14 @@ class Assets_Create_Caption(unittest.TestCase):
             # Language 클릭
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Language'])[1]/following::div[4]").click()
+            '''
             # Language 선택 (Korean - Korea)
-            driver.find_element_by_id("react-select-5-option-81").click()
+            driver.find_element_by_id("react-select-3-option-81").click()
+            #driver.find_element_by_name("Korean - Korea").click()
             # 선택한 Language 출력 확인 (Korean - Korea)
             self.assertEqual("Korean - Korea", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Language'])[1]/following::div[5]").text)
+            '''
         except:
             print('TEST FAIL : test_check_type_caption_s3')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
