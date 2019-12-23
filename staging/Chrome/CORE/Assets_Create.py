@@ -101,8 +101,17 @@ class Assets_Create(unittest.TestCase):
                 driver.find_element_by_xpath(
                     "(.//*[normalize-space(text()) and normalize-space(.)='*'])[1]/following::div[6]").text)
             '''
-            # Name 입력필드 value 확인
-            self.assertEqual("", driver.find_element_by_xpath("//input[@value='']").get_attribute("value"))
+            # Name 입력 (Create Assets MP4)
+            driver.find_element_by_xpath("//input[@value='']").click()
+            # driver.find_element_by_xpath("//input[@value='Create Assets MP4']").clear()
+            # driver.find_element_by_xpath("//input[@value='Create Assets MP4']").send_keys("Create Assets MP4")
+            # driver.find_element_by_xpath("//form[@class='form-control']/button").click("Create Assets MP4")
+            self.driver.find_element_by_xpath('//*[@class="form-control"]').send_keys('Create Assets MP4')
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='CAPTION'])[1]/following::div[2]").click()
+            # 입력한 Name 출력 확인 (Create Assets MP4)
+            self.assertEqual("Create Assets MP4",
+                             driver.find_element_by_xpath("//input[@value='Create Assets MP4']").get_attribute("value"))
         except:
             print('TEST FAIL : test_check_name')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
