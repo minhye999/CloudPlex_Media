@@ -82,18 +82,16 @@ class Assets_Create_Mp4(unittest.TestCase):
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
             time.sleep(5)
-            '''
             # 생성된 Asset 확인 (파일명 : Create Assets MP4)
-            self.assertEqual("Create Assets MP4", driver.find_element_by_link_text("Create Asset MP4").text)
+            self.assertEqual("Create Assets MP4", driver.find_element_by_link_text("Create Assets MP4").text)
             # 생성된 Asset 확인 (파일경로 및 파일명 : https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_001.mp4)
             self.assertEqual(
                 "https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_001.mp4",
                 driver.find_element_by_xpath(
-                    "(.//*[normalize-space(text()) and normalize-space(.)='Create Asset MP4'])[1]/following::span[1]").text)
+                    "(.//*[normalize-space(text()) and normalize-space(.)='Create Assets MP4'])[1]/following::span[1]").text)
             # 생성된 Asset 확인 (파일 사이즈 : Total 5.82 MB)
             self.assertEqual("- Total 5.82 MB", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_001.mp4'])[1]/following::small[1]").text)
-            '''
             # 생성된 Asset 확인 (완료 메시지 : Upload complete)
             self.assertEqual("Upload complete.", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='- Total 5.82 MB'])[1]/following::small[1]").text)
@@ -195,18 +193,16 @@ class Assets_Create_Mp4(unittest.TestCase):
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
             time.sleep(5)
-            '''
             # 생성된 Asset 확인 (파일명 : Create Assets MP4)
-            self.assertEqual("Create Assets MP4", driver.find_element_by_link_text("Create Asset MP4").text)
+            self.assertEqual("Create Assets MP4", driver.find_element_by_link_text("Create Assets MP4").text)
             # 생성된 Asset 확인 (파일경로 및 파일명 : https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_001.mp4)
             self.assertEqual(
                 "https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_001.mp4",
                 driver.find_element_by_xpath(
-                    "(.//*[normalize-space(text()) and normalize-space(.)='Create Asset MP4'])[1]/following::span[1]").text)
+                    "(.//*[normalize-space(text()) and normalize-space(.)='Create Assets MP4'])[1]/following::span[1]").text)
             # 생성된 Asset 확인 (파일 사이즈 : Total 5.82 MB)
             self.assertEqual("- Total 5.82 MB", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_001.mp4'])[1]/following::small[1]").text)
-            '''
             # 생성된 Asset 확인 (완료 메시지 : Upload complete)
             self.assertEqual("Upload complete.", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='- Total 5.82 MB'])[1]/following::small[1]").text)
