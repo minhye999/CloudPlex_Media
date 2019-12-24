@@ -132,10 +132,10 @@ class Welcome(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    #suite.addTest(Welcome('test_check_title'))
-    #suite.addTest(Welcome('test_check_logo'))
-    #suite.addTest(Welcome('test_check_welcome'))
-    #suite.addTest(Welcome('test_check_btn_signIn'))
+    suite.addTest(Welcome('test_check_title'))
+    suite.addTest(Welcome('test_check_logo'))
+    suite.addTest(Welcome('test_check_welcome'))
+    suite.addTest(Welcome('test_check_btn_signIn'))
     suite.addTest(Welcome('test_check_link_createAccount'))
     return suite
 
