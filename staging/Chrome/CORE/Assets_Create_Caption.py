@@ -177,6 +177,62 @@ class Assets_Create_Caption(unittest.TestCase):
             self.assertEqual("Korean - Korea", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Language'])[1]/following::div[5]").text)
             '''
+            # Name 입력 (Create Assets CAPTION)
+            driver.find_element_by_xpath("//input[@value='']").click()
+            # driver.find_element_by_xpath("//input[@value='Create Assets CAPTION']").clear()
+            # driver.find_element_by_xpath("//input[@value='Create Assets CAPTION']").send_keys("Create Assets CAPTION")
+            # driver.find_element_by_xpath("//form[@class='form-control']/button").click("Create Assets CAPTION")
+            self.driver.find_element_by_xpath('//*[@class="form-control"]').send_keys('Create Assets CAPTION')
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='CAPTION'])[1]/following::div[2]").click()
+            # Category 선택 (YG)
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Select category'])[1]/following::button[2]").click()
+            time.sleep(5)
+            driver.find_element_by_xpath("//input[@type='checkbox']").click()
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
+            ''' Attribution의 value 값이 입력안됨 ㅜㅜ
+            # Attribution 입력
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Attributions'])[1]/following::button[1]").click()
+            driver.find_element_by_id("key0").clear()
+            driver.find_element_by_id("key0").send_keys("key")
+            # driver.find_element_by_xpath("//input[@value='value']").clear()
+            # driver.find_element_by_xpath("//input[@value='value']").send_keys("value")
+            # driver.find_element_by_id("key1").send_keys("value")
+            # driver.find_element_by_xpath("//div[@class='form-control-input undefined']").send_keys("value")
+            # driver.find_element_by_xpath("//div[@class='form-control-input undefined', @value='value']").send_keys("value")
+            # self.driver.find_element_by_xpath('//*[@class="form-control"]').send_keys('value')
+            '''
+            # Tags 입력
+            driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div[2]/div/form/div[5]/div[2]/div/div/div/div/div/textarea").click()
+            # tag 입력 후 엔터키는 방법 몰라서 못함
+            #
+            # [Create Asset]버튼 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
+            time.sleep(5)
+            # 생성된 Asset 확인 (파일명 : Create Assets CAPTION)
+            self.assertEqual("Create Assets CAPTION", driver.find_element_by_link_text("Create Assets CAPTION").text)
+            # 생성된 Asset 확인 (파일경로 및 파일명 : https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_002_Chinese.vtt)
+            self.assertEqual(
+                "https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_002_Chinese.vtt",
+                driver.find_element_by_xpath(
+                    "(.//*[normalize-space(text()) and normalize-space(.)='Create Assets CAPTION'])[1]/following::span[1]").text)
+            # 생성된 Asset 확인 (파일 사이즈 : Total 2.50 KB)
+            self.assertEqual("- Total 2.50 KB", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='https://mz-cm-stg-transcoding-input.s3.ap-northeast-2.amazonaws.com/testdata/test_002_Chinese.vtt'])[1]/following::small[1]").text)
+            # 생성된 Asset 확인 (완료 메시지 : Upload complete)
+            self.assertEqual("Upload complete.", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='- Total 2.50 KB'])[1]/following::small[1]").text)
+            # Asset Name 클릭하여 상세페이지로 이동
+            driver.find_element_by_link_text("Create Assets CAPTION").click()
+            time.sleep(3)
+            # 상세 페이지 진입 확인 (Title만 체크)
+            self.assertEqual("Create Assets CAPTION", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Channels'])[1]/following::span[1]").text)
         except:
             print('TEST FAIL : test_check_type_caption_s3')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -193,7 +249,7 @@ class Assets_Create_Caption(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest((Assets_Create_Caption("test_check_type_caption_local")))
+    #suite.addTest((Assets_Create_Caption("test_check_type_caption_local")))
     suite.addTest((Assets_Create_Caption("test_check_type_caption_s3")))
     return suite
 
