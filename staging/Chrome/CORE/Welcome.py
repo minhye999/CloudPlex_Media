@@ -110,7 +110,12 @@ class Welcome(unittest.TestCase):
             self.assertEqual("Create account", driver.find_element_by_link_text("Create account").text)
             # [Create Account]버튼 클릭
             self.driver.find_element_by_link_text("Create account").click()
-            # 이동한 페이지 확인 (Title)
+            # 이동한 페이지 확인 (새창 이동 : Title)
+            driver.switch_to.window(driver.window_handles[-1]) # 최근 열린 탭으로 전환 (새로 열린 탭으로 활성 탭 변경)
+            time.sleep(3) # 로딩 기다리기
+            self.assertEqual(u"계정 만들기", driver.find_element_by_xpath(
+                u"(.//*[normalize-space(text()) and normalize-space(.)='이메일'])[1]/preceding::h2[1]").text)
+
             # 이슈있어 확인불가
         except:
             print('TEST FAIL : test_check_link_createAccount')
@@ -127,10 +132,10 @@ class Welcome(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(Welcome('test_check_title'))
-    suite.addTest(Welcome('test_check_logo'))
-    suite.addTest(Welcome('test_check_welcome'))
-    suite.addTest(Welcome('test_check_btn_signIn'))
+    #suite.addTest(Welcome('test_check_title'))
+    #suite.addTest(Welcome('test_check_logo'))
+    #suite.addTest(Welcome('test_check_welcome'))
+    #suite.addTest(Welcome('test_check_btn_signIn'))
     suite.addTest(Welcome('test_check_link_createAccount'))
     return suite
 
