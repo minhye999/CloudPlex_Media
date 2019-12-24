@@ -124,7 +124,7 @@ class Assets(unittest.TestCase):
         else:
             print('TEST PASS : test_check_quickSearch_name')
 
-    def test_check_quickSearch_id(self):  # Name 확인
+    def test_check_quickSearch_id(self):  # ID 검색기능 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -150,7 +150,7 @@ class Assets(unittest.TestCase):
         else:
             print('TEST PASS : test_check_quickSearch_id')
 
-    def test_check_quickSearch_jobJd(self):  # Name 확인
+    def test_check_quickSearch_jobJd(self):  # Job ID 검색기능 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -167,17 +167,6 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
             self.assertEqual("1576550945AK5a", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::p[2]").text)
-            # 유효한 검색어 입력 (Owner) > [Search]버튼 클릭 > 검색결과 확인 (Owner)
-            # 추후에 자동화 테스트용 계정을 생성해서 그 아이만 조회되도록 해야할 것 같음
-            # 유효한 검색어 입력 (Tags) > [Search]버튼 클릭 > 검색결과 확인 (Tags)
-            driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='+ Create Assets'])[1]/following::div[2]").click()
-            driver.find_element_by_id("quick-search").clear()
-            driver.find_element_by_id("quick-search").send_keys(u"자동화테스트")
-            driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
-            self.assertEqual("1576550945AK5a", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::p[2]").text)
         except:
             print('TEST FAIL : test_check_quickSearch_jobJd')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -187,7 +176,7 @@ class Assets(unittest.TestCase):
         else:
             print('TEST PASS : test_check_quickSearch_jobJd')
 
-    def test_check_quickSearch_owner(self):  # Name 확인
+    def test_check_quickSearch_owner(self):  # owner 검색기능 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -195,17 +184,31 @@ class Assets(unittest.TestCase):
             # Asset 메뉴로 이동
             driver.find_element_by_link_text("Assets").click()
             time.sleep(3)
-            # 유효한 검색어 입력 (Owner) > [Search]버튼 클릭 > 검색결과 확인 (Owner)
-            # 추후에 자동화 테스트용 계정을 생성해서 그 아이만 조회되도록 해야할 것 같음
-            # 유효한 검색어 입력 (Tags) > [Search]버튼 클릭 > 검색결과 확인 (Tags)
+            # [List View] 전환 > 유효한 검색어 입력 (Owner) > [Search]버튼 클릭 > 검색결과 확인 (Owner : 이선애)
             driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='+ Create Assets'])[1]/following::div[2]").click()
+                "//div[@id='root']/div/div/div/div/div[2]/div/div/div[2]/div[2]/button/i").click()
+            driver.find_element_by_id("quick-search").click()
             driver.find_element_by_id("quick-search").clear()
-            driver.find_element_by_id("quick-search").send_keys(u"자동화테스트")
+            driver.find_element_by_id("quick-search").send_keys(u"이선애")
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
-            self.assertEqual("1576550945AK5a", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::p[2]").text)
+            self.assertEqual(u"이선애", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='-'])[3]/following::span[1]").text)
+            # [Reset]버튼 클릭
+            self.assertEqual("rosa@mz.co.kr", driver.find_element_by_xpath(
+                u"(.//*[normalize-space(text()) and normalize-space(.)='이선애'])[1]/following::small[1]").text)
+            # 유효한 검색어 입력 (Owner) > [Search]버튼 클릭 > 검색결과 확인 (Owner : rosa@mz.co.kr)
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Search'])[1]/following::button[1]").click()
+            driver.find_element_by_id("quick-search").click()
+            driver.find_element_by_id("quick-search").clear()
+            driver.find_element_by_id("quick-search").send_keys("rosa@mz.co.kr")
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::button[2]").click()
+            self.assertEqual(u"이선애", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='-'])[3]/following::span[1]").text)
+            self.assertEqual("rosa@mz.co.kr", driver.find_element_by_xpath(
+                u"(.//*[normalize-space(text()) and normalize-space(.)='이선애'])[1]/following::small[1]").text)
         except:
             print('TEST FAIL : test_check_quickSearch_owner')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -215,7 +218,7 @@ class Assets(unittest.TestCase):
         else:
             print('TEST PASS : test_check_quickSearch_owner')
 
-    def test_check_quickSearch_tags(self):  # Name 확인
+    def test_check_quickSearch_tags(self):  # Tags 검색기능 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
