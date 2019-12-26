@@ -21,7 +21,9 @@ class Assets(unittest.TestCase):
 
     def test_check_breadcrumb(self):  # Bread Crumb 확인
         driver = self.driver
-        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")  # 스테이지
+        # driver.get("http://mz-cm-console-dev.s3-website.ap-northeast-2.amazonaws.com/") #개발
+        # driver.get("https://console.media.megazone.io/welcome") #운영
         try:
             staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
             # Asset 메뉴로 이동
@@ -103,7 +105,7 @@ class Assets(unittest.TestCase):
             # [Search]버튼 확인
             self.assertEqual("Search", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").text)
-            # [Refresh]버튼 value 확인
+            # [Reset]버튼 value 확인
             self.assertEqual("", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Search'])[1]/following::button[1]").get_attribute(
                 "value"))
@@ -305,9 +307,6 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("1576550945AK5a", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::p[2]").text)
-            # [Refresh]버튼 클릭
-            driver.find_element_by_xpath(
-                "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
         except:
             print('TEST FAIL : test_check_advancedSearch_id')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -339,9 +338,6 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("1576550945AK5a", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::p[2]").text)
-            # [Refresh]버튼 클릭
-            driver.find_element_by_xpath(
-                "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
         except:
             print('TEST FAIL : test_check_advancedSearch_jobId')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -377,9 +373,10 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='-'])[3]/following::span[1]").text)
             self.assertEqual("rosa@mz.co.kr", driver.find_element_by_xpath(
                 u"(.//*[normalize-space(text()) and normalize-space(.)='이선애'])[1]/following::small[1]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
+
             # [List View] 전환 > 유효한 검색어 입력 (Owner) > [Search]버튼 클릭 > 검색결과 확인 (Owner : rosa@mz.co.kr)
             driver.find_element_by_xpath("(//input[@value=''])[4]").click()
             driver.find_element_by_xpath("//input[@value='rosa@mz.co.kr']").clear()
@@ -424,7 +421,7 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("INACTIVE", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='-'])[2]/following::span[1]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -438,9 +435,6 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("ACTIVE", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='-'])[2]/following::span[1]").text)
-            # [Refresh]버튼 클릭
-            driver.find_element_by_xpath(
-                "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
         except:
             print('TEST FAIL : test_check_advancedSearch_status')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -475,7 +469,7 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("VIDEO", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Created'])[2]/following::td[2]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -489,7 +483,7 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("AUDIO", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Create Assets MP3'])[1]/following::td[1]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -503,7 +497,7 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::button[1]").click()
             self.assertEqual("IMAGE", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Created'])[2]/following::td[2]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -517,9 +511,6 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("TEXT", driver.find_element_by_xpath(
                 u"(.//*[normalize-space(text()) and normalize-space(.)='일본어 자막'])[1]/following::td[1]").text)
-            # [Refresh]버튼 클릭
-            driver.find_element_by_xpath(
-                "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
         except:
             print('TEST FAIL : test_check_advancedSearch_mediaType')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -554,7 +545,7 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("TRANSCODED", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='THUMBNAILS'])[1]/following::td[1]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -568,7 +559,7 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::button[1]").click()
             self.assertEqual("DIRECT", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::td[1]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -582,7 +573,7 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("REMOTE", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='IMAGE'])[2]/following::td[1]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -596,9 +587,6 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("Empty Asset List.", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Created'])[2]/following::td[1]").text)
-            # [Refresh]버튼 클릭
-            driver.find_element_by_xpath(
-                "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
         except:
             print('TEST FAIL : test_check_advancedSearch_ingestType')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -633,7 +621,7 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("MP4", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='VIDEO'])[1]/following::td[1]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -649,7 +637,7 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("HLS", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='VIDEO'])[1]/following::td[1]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -662,7 +650,7 @@ class Assets(unittest.TestCase):
             driver.find_element_by_xpath("//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button/i").click()
             self.assertEqual("DASH", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='VIDEO'])[1]/following::td[1]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -676,7 +664,7 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("MP3", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='AUDIO'])[1]/following::td[1]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -690,7 +678,7 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::button[1]").click()
             self.assertEqual("THUMBNAILS", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='IMAGE'])[1]/following::td[1]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -704,7 +692,7 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("IMAGE", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='IMAGE'])[2]/following::td[1]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -718,7 +706,7 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::button[1]").click()
             self.assertEqual("THUMBNAILS", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='IMAGE'])[1]/following::td[1]").text)
-            # [Refresh]버튼 클릭
+            # [Reset]버튼 클릭
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
 
@@ -732,9 +720,6 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("CAPTION", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='TEXT'])[1]/following::td[1]").text)
-            # [Refresh]버튼 클릭
-            driver.find_element_by_xpath(
-                "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
         except:
             print('TEST FAIL : test_check_advancedSearch_type')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -791,10 +776,10 @@ class Assets(unittest.TestCase):
             # [Advanced Search]버튼 클릭
             driver.find_element_by_xpath("//div[@id='root']/div/div/div/div/div/form/div/div/div/button/i").click()
             # 항목명 + 입력필드 value 확인 (Created)
-            self.assertEqual("Categories", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Created'])[1]/following::label[1]").text)
-            self.assertEqual("Select category", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Categories'])[1]/following::span[1]").text)
+            self.assertEqual("Created", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='~'])[1]/following::label[1]").text)
+            self.assertEqual("", driver.find_element_by_id("startDate").get_attribute("value"))
+            self.assertEqual("", driver.find_element_by_id("endDate").get_attribute("value"))
             ''' Create 검색 Defect으로 확인불가
             # [List View] 전환 > 유효한 검색어 입력 (Created : 2019-12-17 ~ 2019-12-17) > [Search]버튼 클릭 > 검색결과 확인 (Created : 2019-12-17)
             driver.find_element_by_xpath(
@@ -803,9 +788,7 @@ class Assets(unittest.TestCase):
             driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='December 2019'])[1]/following::td[17]").click()
             driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='December 2019'])[1]/following::td[17]").click()
             driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::button[1]").click()
-            # [Refresh]버튼 클릭
-            driver.find_element_by_xpath(
-                "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
+            self.assertEqual("2019-12-17 11:53:32", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='rosa@mz.co.kr'])[1]/following::time[1]").text)
             '''
         except:
             print('TEST FAIL : test_check_advancedSearch_create')
@@ -844,9 +827,6 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
             self.assertEqual("YG", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='ACTIVE'])[1]/following::td[1]").text)
-            # [Refresh]버튼 클릭
-            driver.find_element_by_xpath(
-                "//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
         except:
             print('TEST FAIL : test_check_advancedSearch_categories')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -881,7 +861,8 @@ class Assets(unittest.TestCase):
                 u"자동화테스트")
             driver.find_element_by_xpath(
                 u"(.//*[normalize-space(text()) and normalize-space(.)='자동화테스트'])[1]/following::span[1]").click()
-            # 
+            self.assertEqual("1576550945AK5a", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::p[2]").text)
             '''
         except:
             print('TEST FAIL : test_check_advancedSearch_tags')
