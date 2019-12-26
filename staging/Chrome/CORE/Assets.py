@@ -873,6 +873,167 @@ class Assets(unittest.TestCase):
         else:
             print('TEST PASS : test_check_advancedSearch_tags')
 
+    def test_check_count(self):  # id 검색기능 확인
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # Asset 메뉴로 이동
+            driver.find_element_by_link_text("Assets").click()
+            time.sleep(3)
+            # 유효한 검색어 입력 (ID) > [Search]버튼 클릭 > 검색결과 확인 (count : 1)
+            driver.find_element_by_id("quick-search").clear()
+            driver.find_element_by_id("quick-search").send_keys("1576550945AK5a")
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
+            self.assertEqual("1576550945AK5a", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::p[2]").text)
+            self.assertEqual("1", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Total'])[1]/following::span[1]").text)
+        except:
+            print('TEST FAIL : test_check_count')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot(
+                '../../../staging/Chrome/Test_Results/Screenshots/test_check_count-%s.png' % now)
+        else:
+            print('TEST PASS : test_check_count')
+
+    '''
+    def test_check_paging(self):  # Paging 기능 확인 -> 어떻게 확인하면 좋을지 생각필요
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # Asset 메뉴로 이동
+            driver.find_element_by_link_text("Assets").click()
+            time.sleep(3)
+            # 유효한 검색어 입력 (ID) > [Search]버튼 클릭 > Paging 동작 확인
+
+        except:
+            print('TEST FAIL : test_check_paging')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot(
+                '../../../staging/Chrome/Test_Results/Screenshots/test_check_paging-%s.png' % now)
+        else:
+            print('TEST PASS : test_check_paging')
+    '''
+
+    def test_check_listView(self):  # ID 검색기능 확인
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # Asset 메뉴로 이동
+            driver.find_element_by_link_text("Assets").click()
+            time.sleep(3)
+            # List View 전환
+            driver.find_element_by_xpath("//div[@id='root']/div/div/div/div/div[2]/div/div/div[2]/div[2]/button/i").click()
+            # 유효한 검색어 입력 (ID) > [Search]버튼 클릭
+            driver.find_element_by_id("quick-search").clear()
+            driver.find_element_by_id("quick-search").send_keys("1576550945AK5a")
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
+            # 컬럼 및 데이터 확인 (Asset)
+            self.assertEqual(u"AssetTODO: table sorting 추후에 작업하기로", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Refresh'])[1]/following::th[1]").text)
+            # 썸네일 체크 방법이 없다 (이미지로 체크해야할듯)
+            self.assertEqual("EXO 엑소 'CALL ME BABY' MV", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Created'])[2]/following::span[2]").text)
+            self.assertEqual("1576550945AK5a", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='test'])[1]/following::small[1]").text)
+            # 컬럼 및 데이터 확인 (Media Type)
+            self.assertEqual("Media Type", driver.find_element_by_xpath(
+                u"(.//*[normalize-space(text()) and normalize-space(.)='TODO: table sorting 추후에 작업하기로'])[1]/following::th[1]").text)
+            self.assertEqual("VIDEO", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='test'])[1]/following::td[1]").text)
+            # 컬럼 및 데이터 확인 (Type)
+            self.assertEqual("Type", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Media Type'])[2]/following::th[1]").text)
+            self.assertEqual("MP4", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='VIDEO'])[1]/following::td[1]").text)
+            # 컬럼 및 데이터 확인 (Ingest Type)
+            self.assertEqual("Ingest Type", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Type'])[2]/following::th[1]").text)
+            self.assertEqual("TRANSCODED", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::td[1]").text)
+            # 컬럼 및 데이터 확인 (Duration)
+            self.assertEqual("Duration", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Ingest Type'])[2]/following::th[1]").text)
+            self.assertEqual("00:03:56", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='DIRECT'])[1]/following::td[1]").text)
+            # 컬럼 및 데이터 확인 (Size) -> 용량 모르겠어
+            self.assertEqual("Size", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Duration'])[2]/following::th[1]").text)
+            self.assertEqual("60.27 MB", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='DIRECT'])[1]/following::td[2]").text)
+            # 컬럼 및 데이터 확인 (Status)
+            self.assertEqual("Status", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Size'])[1]/following::th[1]").text)
+            self.assertEqual("ACTIVE", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='DIRECT'])[1]/following::span[1]").text)
+            # 컬럼 및 데이터 확인 (Category)
+            self.assertEqual("Category", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Status'])[2]/following::th[1]").text)
+            self.assertEqual("세훈, 찬열", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='ACTIVE'])[1]/following::td[1]").text)
+            # 컬럼 및 데이터 확인 (Owner)
+            self.assertEqual("Owner", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Category'])[1]/following::th[1]").text)
+            self.assertEqual(u"이선애", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='-'])[2]/following::span[1]").text)
+            self.assertEqual("rosa@mz.co.kr", driver.find_element_by_xpath(
+                u"(.//*[normalize-space(text()) and normalize-space(.)='이선애'])[1]/following::small[1]").text)
+            # 컬럼 및 데이터 확인 (Created)
+            self.assertEqual("Created", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Owner'])[2]/following::th[1]").text)
+            self.assertEqual("2019-12-17 11:53:32", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='rosa@mz.co.kr'])[1]/following::time[1]").text)
+        except:
+            print('TEST FAIL : test_check_listView')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot(
+                '../../../staging/Chrome/Test_Results/Screenshots/test_check_listView-%s.png' % now)
+        else:
+            print('TEST PASS : test_check_listView')
+
+    def test_check_thumbnailView(self):  # ID 검색기능 확인
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # Asset 메뉴로 이동
+            driver.find_element_by_link_text("Assets").click()
+            time.sleep(3)
+            # Thumbnail View 전환
+            driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Refresh'])[1]/following::button[2]").click()
+            # 유효한 검색어 입력 (ID) > [Search]버튼 클릭 > 검색결과 확인 (ID)
+            driver.find_element_by_id("quick-search").clear()
+            driver.find_element_by_id("quick-search").send_keys("1576550945AK5a")
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
+            # 썸네일 체크 방법이 없다 (이미지로 체크해야할듯)
+            #
+            # 데이터 확인 (Lebel : MP4)
+            self.assertEqual("MP4", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Refresh'])[1]/following::span[2]").text)
+            # 데이터 확인 (Name)
+            self.assertEqual("EXO 엑소 'CALL ME BABY' MV", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::p[1]").text)
+            # 데이터 확인 (ID)
+            self.assertEqual("1576550945AK5a", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::p[2]").text)
+        except:
+            print('TEST FAIL : test_check_thumbnailView')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot(
+                '../../../staging/Chrome/Test_Results/Screenshots/test_check_thumbnailView-%s.png' % now)
+        else:
+            print('TEST PASS : test_check_thumbnailView')
+
     def tearDown(self):
         self.driver.close()
         self.driver.quit()
@@ -900,8 +1061,10 @@ def suite():
     suite.addTest((Assets("test_check_advancedSearch_create")))
     suite.addTest((Assets("test_check_advancedSearch_categories")))
     suite.addTest((Assets("test_check_advancedSearch_tags")))
-    #suite.addTest((Assets("test_check_attributions")))
-    #suite.addTest((Assets("test_check_tags")))
+    suite.addTest((Assets("test_check_quickSearch_count")))
+    suite.addTest((Assets("test_check_quickSearch_paging")))
+    suite.addTest((Assets("test_check_listView")))
+    suite.addTest((Assets("test_check_thumbnailView")))
     return suite
 
 if __name__ == "__main__":
