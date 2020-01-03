@@ -123,32 +123,6 @@ class Videos(unittest.TestCase):
         else:
             print('TEST PASS : test_check_quickSearch_id')
 
-    def test_check_quickSearch_jobJd(self):  # Job ID 검색기능 확인
-        driver = self.driver
-        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
-        try:
-            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
-            # Videos 메뉴로 이동
-            driver.find_element_by_link_text("Videos").click()
-            time.sleep(3)
-            # 유효한 검색어 입력 (Job ID) > [Search]버튼 클릭 > 검색결과 확인 (JobID)
-            driver.find_element_by_xpath(
-                "//div[@id='root']/div/div/div/div/div[2]/div/div/div[2]/div[2]/button/i").click()
-            driver.find_element_by_id("quick-search").click()
-            driver.find_element_by_id("quick-search").clear()
-            driver.find_element_by_id("quick-search").send_keys("1576550912NUDt")
-            driver.find_element_by_xpath("//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button/i").click()
-            self.assertEqual("1576551212ICoH", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Refresh'])[1]/following::p[2]").text)
-        except:
-            print('TEST FAIL : test_check_quickSearch_jobJd')
-            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
-            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot(
-                '../../../staging/Chrome/Test_Results/Screenshots/test_check_quickSearch_jobJd-%s.png' % now)
-        else:
-            print('TEST PASS : test_check_quickSearch_jobJd')
-
     def test_check_quickSearch_owner(self):  # Owner 검색기능 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
@@ -157,27 +131,30 @@ class Videos(unittest.TestCase):
             # Videos 메뉴로 이동
             driver.find_element_by_link_text("Videos").click()
             time.sleep(3)
-            # [List View]로 전환 > 유효한 검색어 입력 (Owner) > [Search]버튼 클릭 > 검색결과 확인 (Owner : 이선애)
+            # [List View]로 전환
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div[2]/div/div/div[2]/div[2]/button/i").click()
+            time.sleep(3)
+            # 유효한 검색어 입력 (Owner) > [Search]버튼 클릭 > 검색결과 확인 (Owner : 이선애)
             driver.find_element_by_id("quick-search").click()
             driver.find_element_by_id("quick-search").clear()
             driver.find_element_by_id("quick-search").send_keys(u"이선애")
             driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::button[2]").click()
+                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
+            time.sleep(3)
             self.assertEqual(u"이선애", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='-'])[1]/following::span[1]").text)
             self.assertEqual("rosa@mz.co.kr", driver.find_element_by_xpath(
                 u"(.//*[normalize-space(text()) and normalize-space(.)='이선애'])[1]/following::small[1]").text)
             # [Refresh]버튼 클릭
-            driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Search'])[1]/following::button[1]").click()
+            driver.find_element_by_xpath("//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
             # 유효한 검색어 입력 (Owner) > [Search]버튼 클릭 > 검색결과 확인 (Owner : rosa@mz.co.kr)
             driver.find_element_by_id("quick-search").click()
             driver.find_element_by_id("quick-search").clear()
             driver.find_element_by_id("quick-search").send_keys("rosa@mz.co.kr")
             driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::button[2]").click()
+                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
+            time.sleep(3)
             self.assertEqual(u"이선애", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='-'])[1]/following::span[1]").text)
             self.assertEqual("rosa@mz.co.kr", driver.find_element_by_xpath(
@@ -298,9 +275,10 @@ class Videos(unittest.TestCase):
             self.assertEqual("Owner", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='ID'])[1]/following::label[1]").text)
             self.assertEqual("", driver.find_element_by_xpath("//input[@value='']").get_attribute("value"))
-            # [List View] 전환 > 유효한 검색어 입력 (Owner) > [Search]버튼 클릭 > 검색결과 확인 (Owner : 이선애)
+            # [List View] 전환
             driver.find_element_by_xpath(
                 "//div[@id='root']/div/div/div/div/div[2]/div/div/div[2]/div[2]/button/i").click()
+            # 유효한 검색어 입력 (Owner) > [Search]버튼 클릭 > 검색결과 확인 (Owner : 이선애)
             driver.find_element_by_xpath("(//input[@value=''])[3]").click()
             driver.find_element_by_xpath(u"//input[@value='이선애']").clear()
             driver.find_element_by_xpath(u"//input[@value='이선애']").send_keys(u"이선애")
@@ -312,7 +290,6 @@ class Videos(unittest.TestCase):
                 u"(.//*[normalize-space(text()) and normalize-space(.)='이선애'])[1]/following::small[1]").text)
             # [Reset]버튼 클릭
             driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Search'])[1]/following::button[1]").click()
-
             # 유효한 검색어 입력 (Owner) > [Search]버튼 클릭 > 검색결과 확인 (Owner : rosa@mz.co.kr)
             driver.find_element_by_xpath("(//input[@value=''])[4]").click()
             driver.find_element_by_xpath("//input[@value='rosa@mz.co.kr']").clear()
@@ -352,6 +329,7 @@ class Videos(unittest.TestCase):
             driver.find_element_by_xpath(u"//input[@value='엑소노래']").send_keys(u"엑소노래")
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='FLAC (bit)'])[1]/following::span[1]").click()
+            time.sleep(3)
             self.assertEqual("1576551212ICoH", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Refresh'])[1]/following::p[2]").text)
         except:
             print('TEST FAIL : test_check_advancedSearch_description')
@@ -388,14 +366,16 @@ class Videos(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Created'])[2]/following::span[2]").text)
             # [Reset]버튼 클릭
             driver.find_element_by_xpath("//div[@id='root']/div/div/div/div/div/form/div/div[2]/div/button[2]/i").click()
-
-            # [List View] 전환 > Status 선택 (Active) > [Search]버튼 클릭 > 검색결과 확인 (Active)
+            # [List View] 전환
             driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Refresh'])[1]/following::button[1]").click()
+            time.sleep(3)
+            # Status 선택 (Active) > [Search]버튼 클릭 > 검색결과 확인 (Active)
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Status'])[1]/following::div[3]").click()
             driver.find_element_by_id("react-select-13-option-1").click()
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='FLAC (bit)'])[1]/following::span[1]").click()
+            time.sleep(3)
             self.assertEqual("ACTIVE", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Created'])[2]/following::span[2]").text)
         except:
             print('TEST FAIL : test_check_advancedSearch_status')
@@ -421,8 +401,9 @@ class Videos(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='All Status'])[1]/following::label[1]").text)
             self.assertEqual("__:__:__",
                              driver.find_element_by_xpath("//input[@value='__:__:__']").get_attribute("value"))
-            # [List View] 전환 > 유효한 검색어 입력 (Duration : 00:03:56 ~ 00:03:56) > [Search]버튼 클릭 > 검색결과 확인 (Duration : 00:03:56)
+            # [List View] 전환
             driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Refresh'])[1]/following::button[1]").click()
+            # 유효한 검색어 입력 (Duration : 00:03:56 ~ 00:03:56) > [Search]버튼 클릭 > 검색결과 확인 (Duration : 00:03:56)
             driver.find_element_by_xpath("//input[@value='__:__:__']").click()
             driver.find_element_by_xpath("//input[@value='00:03:56']").clear()
             driver.find_element_by_xpath("//input[@value='00:03:56']").send_keys("00:03:56")
@@ -430,6 +411,7 @@ class Videos(unittest.TestCase):
             driver.find_element_by_xpath("(//input[@value='00:03:56'])[2]").send_keys("00:03:56")
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='FLAC (bit)'])[1]/following::span[1]").click()
+            time.sleep(3)
             self.assertEqual("00:03:56", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Created'])[2]/following::td[2]").text)
         except:
             print('TEST FAIL : test_check_advancedSearch_duration')
@@ -455,8 +437,9 @@ class Videos(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='~'])[1]/following::label[1]").text)
             self.assertEqual("", driver.find_element_by_id("startDate").get_attribute("value"))
             self.assertEqual("", driver.find_element_by_id("endDate").get_attribute("value"))
-            # [List View] 전환 > 유효한 검색어 입력 (Created : 2019-12-17 ~ 2019-12-17) > [Search]버튼 클릭 > 검색결과 확인 (Created : 2019-12-17)
+            # [List View] 전환
             driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Refresh'])[1]/following::button[1]").click()
+            # 유효한 검색어 입력 (Created : 2019-12-17 ~ 2019-12-17) > [Search]버튼 클릭 > 검색결과 확인 (Created : 2019-12-17)
             driver.find_element_by_id("startDate").click()
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='December 2019'])[1]/following::td[17]").click()
@@ -493,15 +476,20 @@ class Videos(unittest.TestCase):
             self.assertEqual("", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Select category'])[1]/following::button[2]").get_attribute(
                 "value"))
-            # [List View] 전환 > Categories 선택 (YG) > [Search]버튼 클릭 > 검색결과 확인 (YG)
-            driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Refresh'])[1]/following::button[1]").click()
-            driver.find_element_by_xpath("//div[@id='root']/div/div/div/div/div/form/div/div/div[2]/div[3]/div/div/div/div/div[3]/button/i").click()
+            # [List View] 전환
+            driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div[2]/div/div/div[2]/div[2]/button/i").click()
             time.sleep(5)
+            # Categories 팝업 호출 > Category 선택 (YG) > [Search]버튼 클릭 > 검색결과 확인 (YG)
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Select category'])[1]/following::button[2]").click()
+            time.sleep(3)
             driver.find_element_by_xpath("//input[@type='checkbox']").click()
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Cancel'])[1]/following::button[1]").click()
             driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Tags'])[1]/following::span[1]").click()
+                u"(.//*[normalize-space(text()) and normalize-space(.)='소개'])[1]/following::span[1]").click()
+            time.sleep(5)
             self.assertEqual("YG", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='ACTIVE'])[1]/following::td[1]").text)
         except:
@@ -575,7 +563,7 @@ class Videos(unittest.TestCase):
         else:
             print('TEST PASS : test_check_advancedSearch_custom')
 
-    def test_check_count(self):  # Video Count 확인
+    def test_check_count(self):  # 검색결과 count 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -589,6 +577,7 @@ class Videos(unittest.TestCase):
             driver.find_element_by_id("quick-search").send_keys("1576551212ICoH")
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
+            time.sleep(3)
             self.assertEqual("1", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Total'])[1]/following::span[1]").text)
         except:
@@ -621,7 +610,7 @@ class Videos(unittest.TestCase):
             print('TEST PASS : test_check_paging')
     '''
 
-    def test_check_listView(self):  # ID 검색기능 확인
+    def test_check_listView(self):  # List View 전환 후, UI 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -638,10 +627,13 @@ class Videos(unittest.TestCase):
             driver.find_element_by_id("quick-search").send_keys("1576551212ICoH")
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
+            time.sleep(3)
             # 컬럼 및 데이터 확인 (Videos)
             self.assertEqual("Videos", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Refresh'])[1]/following::th[1]").text)
             # 썸네일 체크 방법이 없다 (이미지로 체크해야할듯)
+            self.driver.find_element_by_xpath("//div/a[@class='list-thumbnail']")  # 썸네일 class로만 체크가능
+            #self.driver.find_element_by_xpath("//div/a[@class='list-thumb__img']")  # 썸네일 class로만 체크가능
             self.assertEqual("EXO 엑소 'CALL ME BABY' MV", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Created'])[2]/following::span[1]").text)
             self.assertEqual("1576551212ICoH", driver.find_element_by_xpath(
@@ -682,7 +674,7 @@ class Videos(unittest.TestCase):
         else:
             print('TEST PASS : test_check_listView')
 
-    def test_check_thumbnailView(self):  # ID 검색기능 확인
+    def test_check_thumbnailView(self):  # Thumbnail View 전환 후, UI 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -703,7 +695,7 @@ class Videos(unittest.TestCase):
             self.assertEqual("Videos", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Refresh'])[1]/following::th[1]").text)
             # 썸네일 체크 방법이 없다 (이미지로 체크해야할듯)
-            #
+            self.driver.find_element_by_xpath("//div/a[@class='list-thumbnail']")  # 썸네일 class로만 체크가능
             # 데이터 확인 (Name)
             self.assertEqual("EXO 엑소 'CALL ME BABY' MV", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Refresh'])[1]/following::p[1]").text)
@@ -728,25 +720,24 @@ def suite():
     suite = unittest.TestSuite()
     suite.addTest(Videos('test_check_breadcrumb'))
     suite.addTest(Videos("test_check_title"))
-    suite.addTest((Videos("test_check_quickSearch_name")))
-    suite.addTest((Videos("test_check_quickSearch_id")))
-    suite.addTest((Videos("test_check_quickSearch_jonId")))
-    suite.addTest((Videos("test_check_quickSearch_owner")))
-    suite.addTest((Videos("test_check_quickSearch_tags")))
-    suite.addTest((Videos("test_check_advancedSearch_name")))
-    suite.addTest((Videos("test_check_advancedSearch_id")))
-    suite.addTest((Videos("test_check_advancedSearch_owner")))
-    suite.addTest((Videos("test_check_advancedSearch_description")))
-    suite.addTest((Videos("test_check_advancedSearch_status")))
-    suite.addTest((Videos("test_check_advancedSearch_duration")))
-    suite.addTest((Videos("test_check_advancedSearch_create")))
-    suite.addTest((Videos("test_check_advancedSearch_categories")))
-    suite.addTest((Videos("test_check_advancedSearch_tags")))
-    suite.addTest((Videos("test_check_advancedSearch_custom")))
-    suite.addTest((Videos("test_check_count")))
-    suite.addTest((Videos("test_check_paging")))
-    suite.addTest((Videos("test_check_listView")))
-    suite.addTest((Videos("test_check_thumbnailView")))
+    suite.addTest(Videos("test_check_quickSearch_name"))
+    suite.addTest(Videos("test_check_quickSearch_id"))
+    suite.addTest(Videos("test_check_quickSearch_owner"))
+    suite.addTest(Videos("test_check_quickSearch_tags"))
+    suite.addTest(Videos("test_check_advancedSearch_name"))
+    suite.addTest(Videos("test_check_advancedSearch_id"))
+    suite.addTest(Videos("test_check_advancedSearch_owner"))
+    suite.addTest(Videos("test_check_advancedSearch_description"))
+    suite.addTest(Videos("test_check_advancedSearch_status"))
+    suite.addTest(Videos("test_check_advancedSearch_duration"))
+    suite.addTest(Videos("test_check_advancedSearch_create"))
+    suite.addTest(Videos("test_check_advancedSearch_categories"))
+    suite.addTest(Videos("test_check_advancedSearch_tags"))
+    suite.addTest(Videos("test_check_advancedSearch_custom"))
+    suite.addTest(Videos("test_check_count"))
+    #suite.addTest(Videos("test_check_paging")) #어떻게할지 방법찾아야함
+    suite.addTest(Videos("test_check_listView"))
+    suite.addTest(Videos("test_check_thumbnailView"))
     return suite
 
 if __name__ == "__main__":
