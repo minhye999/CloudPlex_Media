@@ -132,7 +132,7 @@ class Assets(unittest.TestCase):
             driver.find_element_by_xpath("//div[@id='root']/div/div/div[2]/div/div/div/button[2]/span/i")
             # [X]버튼 클릭하여 Quick View 닫기
             driver.find_element_by_xpath("//div[@id='root']/div/div/div[2]/div/div/div/button[2]/span/i").click()
-            # [X]ㅂ튼이 없으면 닫힌 것으로 간주
+            # [X]버튼이 없으면 닫힌 것으로 간주
             #
         except:
             print('TEST FAIL : test_check_btn_close')
@@ -160,7 +160,7 @@ class Assets(unittest.TestCase):
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::p[2]").click()
             time.sleep(3)
-            # Player 체크방법?
+            # Player 출력 확인
             driver.find_element_by_id("vjs_video_3_html5_api")
             # [재생]버튼 출력 확인
             self.assertEqual("play", driver.find_element_by_xpath(
@@ -180,12 +180,20 @@ class Assets(unittest.TestCase):
             # 음소거 아이콘 출력 확인
             self.assertEqual("mute", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='replay'])[1]/following::button[1]").text)
-            # Default 영상 재생 배율 확인 (x1.0)
+            # Default 영상 빠르기 확인 (x1.0)
             self.assertEqual("x1.0", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='|'])[1]/following::button[1]").text)
+            # 영상 빠르기 변경 (x1.0 -> 2.0)
+            # MZCLOUDMED-6418 Assets_퀵뷰_빠르기 기능안됨
             # [전체화면] 아이콘 출력 확인
             self.assertEqual("fullscreen", driver.find_element_by_xpath(
                 u"(.//*[normalize-space(text()) and normalize-space(.)='세팅'])[1]/following::button[1]").text)
+            # [전체화면] 아이콘 클릭
+            driver.find_element_by_xpath(
+                u"(.//*[normalize-space(text()) and normalize-space(.)='세팅'])[1]/following::button[1]").click()
+            # [기본화면] 아이콘 클릭
+            driver.find_element_by_xpath(
+                u"(.//*[normalize-space(text()) and normalize-space(.)='세팅'])[1]/following::button[1]").click()
         except:
             print('TEST FAIL : test_check_player')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -257,10 +265,11 @@ class Assets(unittest.TestCase):
                 "(.//*[normalize-space(text()) and normalize-space(.)='Duration'])[1]/following::strong[1]").text)
             self.assertEqual("131.40 MB", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Size'])[2]/following::span[1]").text)
-            # Data 확인 (Owner : 이선애(rosa@mz.co.kr)
+            # Data 확인 (Job ID : 1576550912NUDt)
             self.assertEqual("Job ID", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Size'])[2]/following::strong[1]").text)
             self.assertEqual("1576550912NUDt", driver.find_element_by_link_text("1576550912NUDt").text)
+            # Data 확인 (Owner : 이선애(rosa@mz.co.kr)
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Job ID'])[1]/following::strong[1]").click()
             self.assertEqual("Owner", driver.find_element_by_xpath(
