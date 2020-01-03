@@ -8,7 +8,7 @@ import unittest
 import HtmlTestRunner
 import staging.Chrome.CORE.common
 
-class Assets(unittest.TestCase):
+class Assets_QuickView(unittest.TestCase):
 
     @classmethod
     def setUp(self):
@@ -369,13 +369,13 @@ class Assets(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(Assets('test_check_iconAsset'))
-    suite.addTest(Assets("test_check_title"))
-    suite.addTest((Assets("test_check_iconPreview")))
-    suite.addTest((Assets("test_check_btn_close")))
-    suite.addTest((Assets("test_check_player")))
-    suite.addTest((Assets("test_check_overview")))
-    suite.addTest((Assets("test_check_metadata"))) # people 이슈 해결시 사진/이름 체크하도록 하기
+    suite.addTest(Assets_QuickView('test_check_iconAsset'))
+    suite.addTest(Assets_QuickView("test_check_title"))
+    suite.addTest(Assets_QuickView("test_check_iconPreview"))
+    suite.addTest(Assets_QuickView("test_check_btn_close"))
+    suite.addTest(Assets_QuickView("test_check_player"))
+    suite.addTest(Assets_QuickView("test_check_overview"))
+    suite.addTest(Assets_QuickView("test_check_metadata")) # people 이슈 해결시 사진/이름 체크하도록 하기
     return suite
 
 if __name__ == "__main__":
