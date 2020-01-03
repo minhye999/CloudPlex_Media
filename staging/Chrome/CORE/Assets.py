@@ -939,7 +939,7 @@ class Assets(unittest.TestCase):
             print('TEST PASS : test_check_paging')
     '''
 
-    def test_check_listView(self):  # ID 검색기능 확인
+    def test_check_listView(self):  # List View 전환 후, UI 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -1010,7 +1010,7 @@ class Assets(unittest.TestCase):
         else:
             print('TEST PASS : test_check_listView')
 
-    def test_check_thumbnailView(self):  # ID 검색기능 확인
+    def test_check_thumbnailView(self):  # Thumbnail View 전환 후, UI 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -1065,7 +1065,7 @@ def suite():
     suite.addTest(Assets("test_check_quickSearch_jonId"))
     suite.addTest(Assets("test_check_quickSearch_owner"))
     suite.addTest(Assets("test_check_quickSearch_tags"))
-    suite.addTest(Assets("test_check_advancedSearch_name")) # 왜 입력필드에 텍스트 입력이 안되고 퀵서치로 전환되냐
+    suite.addTest(Assets("test_check_advancedSearch_name"))
     suite.addTest(Assets("test_check_advancedSearch_id"))
     suite.addTest(Assets("test_check_advancedSearch_jobId"))
     suite.addTest(Assets("test_check_advancedSearch_owner"))
@@ -1078,8 +1078,8 @@ def suite():
     suite.addTest(Assets("test_check_advancedSearch_categories"))
     suite.addTest(Assets("test_check_advancedSearch_tags"))
     suite.addTest(Assets("test_check_count"))
-    suite.addTest(Assets("test_check_quickSearch_paging")) # 요건아직안함
-    suite.addTest(Assets("test_check_listView")) #Name, 컬럼명, 썸네일 체크안됨
+    #suite.addTest(Assets("test_check_quickSearch_paging")) # 요건아직안함
+    suite.addTest(Assets("test_check_listView")) #Name, 컬럼명, 썸네일 체크안됨 class로만 체크가능
     suite.addTest(Assets("test_check_thumbnailView")) #썸네일 체크안됨 class로만 체크가능
     return suite
 
