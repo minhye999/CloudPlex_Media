@@ -431,29 +431,42 @@ class Videos_QuickView(unittest.TestCase):
             # 유효한 검색어 입력 (ID) > [Search]버튼 클릭
             driver.find_element_by_id("quick-search").click()
             driver.find_element_by_id("quick-search").clear()
-            driver.find_element_by_id("quick-search").send_keys("1576551212ICoH")
+            driver.find_element_by_id("quick-search").send_keys("157804115376Zl")
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
             time.sleep(3)
             # ID 클릭하여 Quick View 호출
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Refresh'])[1]/following::p[2]").click()
-            time.sleep(3)
+            time.sleep(5)
             # 탭 확인 (Dubbing)
             self.assertEqual("Dubbing", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Related Assets'])[1]/following::span[1]").text)
             # 탭 클릭 (Dubbing)
+            driver.find_element_by_link_text("Dubbing").click()
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Related Assets'])[1]/following::span[1]").click()
-            # 개수 확인 (Total0) -> Data 있는 Test Data 필요
-            self.assertEqual("Total0", driver.find_element_by_xpath(
+            # 개수 확인 (Total2)
+            self.assertEqual("Total2", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Dubbing'])[1]/following::span[2]").text)
-            # Label 확인 -> Data 있는 Test Data 필요
+            # 컬럼 확인 (Label)
             self.assertEqual("Label", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Dubbing'])[1]/following::div[4]").text)
-            # Language 확인 -> Data 있는 Test Data 필요
+            # 컬럼 확인 (Language)
             self.assertEqual("Language", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Label'])[1]/following::div[1]").text)
+            # Data 확인 (Label - Chinese)
+            self.assertEqual("Chinese", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Language'])[1]/following::span[1]").text)
+            # Data 확인 (Language - ZHO)
+            self.assertEqual("ZHO", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Chinese'])[2]/following::td[1]").text)
+            # Data 확인 (Label - Korean)
+            self.assertEqual("Korean", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='ZHO'])[1]/following::span[1]").text)
+            # Data 확인 (Language - KOR)
+            self.assertEqual("KOR", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Korean'])[2]/following::td[1]").text)
         except:
             print('TEST FAIL : test_check_dubbing')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -470,6 +483,7 @@ class Videos_QuickView(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
+    '''
     suite.addTest(Videos_QuickView('test_check_iconVideo'))
     suite.addTest(Videos_QuickView("test_check_title"))
     suite.addTest(Videos_QuickView("test_check_iconPreview"))
@@ -478,6 +492,7 @@ def suite():
     suite.addTest(Videos_QuickView("test_check_overview"))
     suite.addTest(Videos_QuickView("test_check_metadata")) # people 이슈 해결시 사진/이름 체크하도록 하기
     suite.addTest(Videos_QuickView("test_check_relatedAssets"))
+    '''
     suite.addTest(Videos_QuickView("test_check_dubbing")) # 더빙 Data가 있는 것으로 Test Data 변경 필요
     return suite
 
