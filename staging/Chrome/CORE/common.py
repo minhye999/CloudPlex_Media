@@ -26,7 +26,7 @@ def move_main(self):
         u"(.//*[normalize-space(text()) and normalize-space(.)='로그인'])[1]/following::strong[1]").click()
     time.sleep(5)
     # Project로 이동
-    driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Administration'])[1]/following::div[4]").click()
+    driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Continuum'])[1]/following::p[1]").click()
     time.sleep(5)
 
 # Project Admin > Settings > Transcoding > Create origin asset : Enable 설정
