@@ -223,7 +223,7 @@ class PopUp_Publish(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(PopUp_Publish('test_check_title'))
+    suite.addTest(PopUp_Publish("test_check_title"))
     suite.addTest(PopUp_Publish("test_check_close"))
     suite.addTest(PopUp_Publish("test_check_video"))
     suite.addTest(PopUp_Publish("test_check_toPublish")) # Publish 완료 확인하는 방법
