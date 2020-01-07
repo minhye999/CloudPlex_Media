@@ -8,7 +8,7 @@ import unittest
 import HtmlTestRunner
 import staging.Chrome.CORE.common
 
-class PopUp_PipelineDetail(unittest.TestCase):
+class PopUp_ProfileDetail(unittest.TestCase):
 
     @classmethod
     def setUp(self):
@@ -151,10 +151,10 @@ class PopUp_PipelineDetail(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    #suite.addTest(PopUp_PipelineDetail('test_check_title'))
-    suite.addTest(PopUp_PipelineDetail("test_check_viewMode"))
-    #suite.addTest(PopUp_PipelineDetail("test_check_btn_folding"))
-    #suite.addTest(PopUp_PipelineDetail("test_check_btn_close"))
+    #suite.addTest(PopUp_ProfileDetail('test_check_title'))
+    suite.addTest(PopUp_ProfileDetail("test_check_viewMode"))
+    #suite.addTest(PopUp_ProfileDetail("test_check_btn_folding"))
+    #suite.addTest(PopUp_ProfileDetail("test_check_btn_close"))
     return suite
 
 if __name__ == "__main__":
