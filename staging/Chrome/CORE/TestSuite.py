@@ -41,6 +41,7 @@ from staging.Chrome.CORE.Listings_Detail import *
 # Lineup
 from staging.Chrome.CORE.Lineup import *
 from staging.Chrome.CORE.Lineup_Create import *
+#from staging.Chrome.CORE.Lineup_Detail import *
 # Channels
 
 import unittest
@@ -81,6 +82,7 @@ if __name__ == "__main__":
     suite31 = unittest.TestLoader().loadTestsFromTestCase(Listings_Detail)
     suite32 = unittest.TestLoader().loadTestsFromTestCase(Lineup)
     suite33 = unittest.TestLoader().loadTestsFromTestCase(Lineup_Create)
+    #suite33 = unittest.TestLoader().loadTestsFromTestCase(Lineup_Detail)
 
 
 
