@@ -243,6 +243,184 @@ class Lineup(unittest.TestCase):
         else:
             print('TEST PASS : checkTable')
 
+    def test_checkLineup(self):  # Lineup 출력 요소 확인 (EXO 엑소 'Love Shot' MV)
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # [Listings] 메뉴로 이동
+            driver.find_element_by_link_text("Listings").click()
+            time.sleep(5)
+            # Listings 리스트 클릭하여 Lineup편성 페이지 진입 (list1 / 1577690929yyeP)
+            driver.find_element_by_link_text("list1").click()
+            time.sleep(10)
+            # [편성 목록]아이콘 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Listings Detail'])[1]/following::*[name()='svg'][1]").click()
+            time.sleep(3)
+            # 달력 패널에서 날짜 선택 (2020-1-3)
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='January 2020'])[1]/following::td[6]").click()
+            time.sleep(5)
+            # Start time 확인 (형식 : HH:MM:SS.SEC)
+            self.driver.find_element_by_xpath(
+                '//div[@id="root"]/div/div/div[1]/div/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div[2]')
+            time.sleep(3)
+            # End time 확인 (형식 : HH:MM:SS.SEC)
+            self.assertEqual("18:03:29.189", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Add'])[1]/following::strong[2]").text)
+            time.sleep(3)
+            # Duration 확인 (형식 : HH:MM:SS.SEC)
+            self.assertEqual("00:03:29.189", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Add'])[1]/following::strong[3]").text)
+            time.sleep(3)
+            # Repeat 확인 [Repeat 아이콘 미출력(Repeat Off Schedule)] *아이콘 유무 확인불가로 케이스 제외
+            #self.driver.find_element_by_xpath('//div[@id="root"]/div/div/div/div/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div[8]/div/i')
+            #time.sleep(3)
+
+            # Media 확인 (MP4 아이콘 + 텍스트 출력)
+            self.driver.find_element_by_xpath('//div[@id="root"]/div/div/div/div/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div[8]/div/i')
+            self.assertEqual("MP4", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Add'])[1]/following::div[14]").text)
+            time.sleep(3)
+            # Name 확인(편성 Lineup Name : "EXO 엑소 'Love Shot' MV")
+            self.assertEqual("EXO 엑소 'Love Shot' MV", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::div[1]").text)
+            time.sleep(3)
+            # Poster 아이콘 확인 [아이콘 미출력(대표 Poster 미설정)] *아이콘 유무 확인불가로 케이스 제외
+            #self.assertEqual("", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Lineup count'])[1]/following::dt[1]").text)
+            #time.sleep(3)
+
+            # Priority 확인 [Medium 아이콘 + 텍스트 출력(Medium 설정)]
+            self.driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div[10]/span/i")
+            self.assertEqual("Medium", driver.find_element_by_xpath(u"(.//*[normalize-space(text()) and normalize-space(.)=concat('EXO 엑소 ', \"'\", 'Love Shot', \"'\", ' MV')])[1]/following::span[1]").text)
+            time.sleep(3)
+
+        except:
+            print('TEST FAIL : checkLineup')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot(
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+        else:
+            print('TEST PASS : checkLineup')
+
+    def test_checkLineupIcon(self):  # Lineup - icon 출력 요소 확인 (EXO 엑소 'Love Shot' MV)
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # [Listings] 메뉴로 이동
+            driver.find_element_by_link_text("Listings").click()
+            time.sleep(5)
+            # Listings 리스트 클릭하여 Lineup편성 페이지 진입 (list1 / 1577690929yyeP)
+            driver.find_element_by_link_text("list1").click()
+            time.sleep(10)
+            # [편성 목록]아이콘 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Listings Detail'])[1]/following::*[name()='svg'][1]").click()
+            time.sleep(3)
+            # 달력 패널에서 날짜 선택 (2020-1-3)
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='January 2020'])[1]/following::td[6]").click()
+            time.sleep(5)
+            # [i]버튼 확인
+            driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div[7]")
+            time.sleep(5)
+            # [i]버튼 클릭
+            driver.find_element_by_xpath("//div[@id='root']/div/div/div/div/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div[7]").click()
+            time.sleep(5)
+            # Lineup Detail 패널 Title 확인
+            self.assertEqual("Lineup", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Megazone Corp.'])[1]/following::span[1]").text)
+            time.sleep(3)
+            # Lineup Detail 패널 X버튼 확인
+            driver.find_element_by_xpath("//div[@id='root']/div/div/div[2]/div[2]/div/div/button/span/i")
+            time.sleep(3)
+            # Lineup Detail 패널 X버튼 클릭
+            driver.find_element_by_xpath("//div[@id='root']/div/div/div[2]/div[2]/div/div/button/span/i").click()
+            time.sleep(3)
+            # [Copy to] 버튼 확인
+            driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div[11]/div/button/i")
+            time.sleep(3)
+            # [Copy to] 버튼 클릭
+            driver.find_element_by_xpath("//div[@id='root']/div/div/div/div/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div[11]/div/button/i").click()
+            time.sleep(3)
+            # Lineup copy 패널 Title 확인
+            self.assertEqual("Lineup copy", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Copy To'])[1]/following::h4[1]").text)
+            time.sleep(3)
+            # Lineup copy 패널 - [Cancel]버튼 클릭
+            driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Lineup copy'])[1]/following::button[1]").click()
+            time.sleep(3)
+            # [Delete] 버튼 확인 (과거 lineup이므로 비활성 상태로 존재)
+            driver.find_element_by_xpath("//div[@id='root']/div/div/div/div/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div[11]/div/button[2]/i")
+            time.sleep(3)
+
+        except:
+            print('TEST FAIL : checkLineupIcon')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot(
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+        else:
+            print('TEST PASS : checkLineupIcon')
+
+    def test_checkLineupBlank(self):  # No Lineup 상태의 출력 요소 확인
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # [Listings] 메뉴로 이동
+            driver.find_element_by_link_text("Listings").click()
+            time.sleep(5)
+            # Listings 리스트 클릭하여 Lineup편성 페이지 진입 (list1 / 1577690929yyeP)
+            driver.find_element_by_link_text("list1").click()
+            time.sleep(10)
+            # [편성 목록]아이콘 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Listings Detail'])[1]/following::*[name()='svg'][1]").click()
+            time.sleep(3)
+            # 달력 패널에서 미래날짜 선택 [현재 날짜(2020-1-7) 기준, 미래 날짜(2020-2-7) 설정 ]
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Sa'])[1]/following::*[name()='svg'][2]").click()
+            time.sleep(5)
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='February 2020'])[1]/following::td[13]").click()
+            time.sleep(5)
+            # No Lineup 영역 항목명 확인 - No Lineup(Blank time : 24:00:00.000)
+            self.assertEqual("No Lineup\n(Blank time : 24:00:00.000)", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Delete'])[1]/following::div[9]").text)
+            time.sleep(3)
+            # [Add] 버튼 확인
+            self.assertEqual("Add", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Add Lineup'])[1]/preceding::span[1]").text)
+            time.sleep(3)
+            # [Add] 버튼 클릭
+            driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Add Lineup'])[1]/preceding::span[1]").click()
+            time.sleep(5)
+            # Source 패널 Title 확인
+            self.assertEqual("Sources", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Megazone Corp.'])[1]/following::span[1]").text)
+            time.sleep(3)
+            # Source 패널 X버튼 확인
+            driver.find_element_by_xpath("//div[@id='root']/div/div/div[2]/div[2]/div/div/button/span/i")
+            time.sleep(3)
+            # Source 패널 X버튼 클릭
+            driver.find_element_by_xpath("//div[@id='root']/div/div/div[2]/div[2]/div/div/button/span/i").click()
+            time.sleep(3)
+
+        except:
+            print('TEST FAIL : checkLineupBlank')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot(
+                '../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+        else:
+            print('TEST PASS : checkLineupBlank')
 
     def tearDown(self):
         self.driver.close()
@@ -257,6 +435,9 @@ def suite():
     suite.addTest(Lineup('test_checkData'))
     suite.addTest(Lineup('test_checkSummary'))
     suite.addTest(Lineup('test_checkTable'))
+    suite.addTest(Lineup('test_checkLineup'))
+    suite.addTest(Lineup('test_checkLineupIcon'))
+    suite.addTest(Lineup('test_checkLineupBlank'))
     return suite
 
 if __name__ == "__main__":
