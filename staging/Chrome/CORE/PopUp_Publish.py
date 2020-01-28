@@ -114,7 +114,7 @@ class PopUp_Publish(unittest.TestCase):
             driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Videos'])[2]/following::button[1]").click()
             time.sleep(3)
-            # Video 항목명, Data 확인
+            # Video 항목명, Data 확인 (자동화 테스트 - 001(1578039655b2n5))
             self.assertEqual("Video", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Publish'])[1]/following::h6[1]").text)
             self.assertEqual(u"자동화 테스트 - 001(1578039655b2n5)", driver.find_element_by_xpath(

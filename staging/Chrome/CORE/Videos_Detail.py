@@ -947,6 +947,218 @@ class Videos_Detail(unittest.TestCase):
         else:
             print('TEST PASS : test_check_thumbnailView')
 
+    def test_check_player_source(self):  # Player에서 Source 영역 확인
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # Videos 메뉴로 이동
+            driver.find_element_by_link_text("Videos").click()
+            time.sleep(3)
+            # Thumbnail View 전환
+            driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div[2]/div/div/div[2]/div[2]/button[2]/i").click()
+            # 유효한 검색어 입력 (ID) > [Search]버튼 클릭 > 검색결과 확인 (ID)
+            driver.find_element_by_id("quick-search").click()
+            driver.find_element_by_id("quick-search").clear()
+            driver.find_element_by_id("quick-search").send_keys("1576551212ICoH")
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
+            # Player에서 라벨 확인 (MP4)
+            self.assertEqual("MP4", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Delete'])[1]/following::span[2]").text)
+            # Player에서 Source 확인
+            #self.assertEqual("Sources -", driver.find_element_by_xpath(
+            #    "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::strong[1]").text)
+            self.driver.find_element_by_xpath("//div/span[@class='format-text format-text-mp4']")
+            '''텍스트가 너무 길어서 이슈 발생
+            self.assertRegexpMatches(driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Sources -'])[1]/following::span[1]").text,
+                                     r"^https://mz-cm-stg-transcoding-output\.s3\.ap-northeast-2\.amazonaws\.com/mz-cm-v1/assets/1576550945AK5a/EXO%20%EC%97%91%EC%86%8C%20%27CALL%20ME%20BABY%27%20MV_mp4\.mp4[\s\S]X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAQ77INLW5FJOR6JEG%2F20200108%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Date=20200108T115237Z&X-Amz-Expires=900&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEQaDmFwLW5vcnRoZWFzdC0yIkcwRQIgckcwfdsZStBk64JKGKcSE0IFVSOkd%2BNn2FLdLFH%2BAskCIQCzmTNAdIJ794MUpkdmxLEmrl192MhCGsYPaQNusR4PFiraAQi9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDA2ODY3MDAyMTA1MCIMcDGIbJFWqhNWiUAdKq4BAz52za81WMh7pkDB4FSBYyCn1IAT76yr0ADk%2Bs7jm9fV9Ym3YQsJ7AaLofyTaY0BOrrtHDGweSW3wF86RA2c52FFns0iHcuDspjGOvXSiVS9ruSiX1ManE9WSUBh%2BDnZccJojVv8a6V%2FGeu6fsZDcnH294UKjFShzqVjiSdQZqcB1gTW%2BCN5EaRVP42tW5K9N7pjPwdMa5yC%2FMUUdqKMa%2BzrtV%2Bm0Pxqaaz67EbmMPWE1%2FAFOuABKfQZOHLKh8uTGFHsZMxPi35poyil%2F0Eaf1Ue2OdPPBA4mq%2BoCQm1zxRiVXtGrQuYl38DYQ9CiIQJpQ9ORpWXrGEZGlXETlfnDsxOreukmWam42bByVYXKvOA6flm1o3JX3mJOMSYmwJJkZs%2FORNiguVJ7FL4fYC%2B0Q5ypNUDjQW%2BCPXJ7Ii3n4ua%2B8fFKdE8M9AVA2RGq9worUPEyPHnvuKjEZm9zukqO7T9WyDhxIh5QHJaI2dg96BKBqBGXc9sJ%2BfE7%2Bapk6Z8Xhkaa0LqS50lHlvoiUT6JZ0VSMT3Ywc%3D&X-Amz-Signature=02c92f5bcc6785732b7741fd3dc772ca0a0136010ff694289c7023b324d6b10e&X-Amz-SignedHeaders=host$")
+            '''
+            # Player에서 Source [펼치기]버튼 확인
+            #
+            # Player에서 Source [펼치기]버튼 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Delete'])[1]/following::button[1]").click()
+            # Player에서 Source [접기]버튼 확인
+            #
+            # Player에서 Source [접기]버튼 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Delete'])[1]/following::button[1]").click()
+            # Player에서 [Preview]버튼 확인
+            # Player에서 [Preview]버튼 클릭
+            self.assertEqual("preview", driver.find_element_by_link_text("preview").text)
+            driver.find_element_by_xpath("//div[@id='root']/div/div/div/div/div/div[2]/div/div/div/div[2]/a/i").click()
+            time.sleep(3)
+            # Preview 팝업창 확인 (새창 이동 : Title)
+            driver.switch_to.window(driver.window_handles[-1])  # 최근 열린 탭으로 전환 (새로 열린 탭으로 활성 탭 변경)
+            time.sleep(3)  # 로딩 기다리기
+            self.assertEqual(u"EXO 엑소 'CALL ME BABY' MV", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='MP4'])[1]/following::span[1]").text)
+            driver.close()
+        except:
+            print('TEST FAIL : test_check_player_source')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot(
+                '../../../staging/Chrome/Test_Results/Screenshots/test_check_player_source-%s.png' % now)
+        else:
+            print('TEST PASS : test_check_player_source')
+
+    def test_check_player_play(self):  # Player에서 재생/일시정지 기능 확인
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # Videos 메뉴로 이동
+            driver.find_element_by_link_text("Videos").click()
+            time.sleep(3)
+            # Thumbnail View 전환
+            driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div[2]/div/div/div[2]/div[2]/button[2]/i").click()
+            # 유효한 검색어 입력 (ID) > [Search]버튼 클릭 > 검색결과 확인 (ID)
+            driver.find_element_by_id("quick-search").click()
+            driver.find_element_by_id("quick-search").clear()
+            driver.find_element_by_id("quick-search").send_keys("1576551212ICoH")
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
+            # Player에서 재생아이콘 확인
+            self.assertEqual("play", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='progress'])[1]/following::button[1]").text)
+            # Player에서 재생 아이콘 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='progress'])[1]/following::button[1]").click()
+            # 실제 재생이 되는지는 알 수 없음
+            # Player에서 일시정지 아이콘 확인
+            self.assertEqual("paused", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='progress'])[1]/following::button[1]").text)
+            # Player에서 일시정지 아이콘 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='progress'])[1]/following::button[1]").click()
+            # Player에서 재생아이콘 확인
+            self.assertEqual("play", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='progress'])[1]/following::button[1]").text)
+        except:
+            print('TEST FAIL : test_check_player_play')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot(
+                '../../../staging/Chrome/Test_Results/Screenshots/test_check_player_play-%s.png' % now)
+        else:
+            print('TEST PASS : test_check_player_play')
+
+    def test_check_player_sound(self):  # Player에서 음소거 기능 확인
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # Videos 메뉴로 이동
+            driver.find_element_by_link_text("Videos").click()
+            time.sleep(3)
+            # Thumbnail View 전환
+            driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div[2]/div/div/div[2]/div[2]/button[2]/i").click()
+            # 유효한 검색어 입력 (ID) > [Search]버튼 클릭 > 검색결과 확인 (ID)
+            driver.find_element_by_id("quick-search").click()
+            driver.find_element_by_id("quick-search").clear()
+            driver.find_element_by_id("quick-search").send_keys("1576551212ICoH")
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
+            # Player에서 음량 조절하는 거는 알 수 없다 (음량을 낮췄다가 높히는 거)
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='mute'])[1]/following::div[2]").click()
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='replay'])[1]/following::div[1]").click()
+            # Player에서 음소거 아이콘 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='replay'])[1]/following::button[1]").click()
+            # 실제 안들리는지는 알 수 없다
+            # Player에서 음소거 아이콘 확인
+            self.assertEqual("mute", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='replay'])[1]/following::button[1]").text)
+        except:
+            print('TEST FAIL : test_check_player_sound')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot(
+                '../../../staging/Chrome/Test_Results/Screenshots/test_check_player_sound-%s.png' % now)
+        else:
+            print('TEST PASS : test_check_player_sound')
+
+    def test_check_player_speed(self):  # Player에서 속도 조정 기능 확인
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # Videos 메뉴로 이동
+            driver.find_element_by_link_text("Videos").click()
+            time.sleep(3)
+            # Thumbnail View 전환
+            driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div[2]/div/div/div[2]/div[2]/button[2]/i").click()
+            # 유효한 검색어 입력 (ID) > [Search]버튼 클릭 > 검색결과 확인 (ID)
+            driver.find_element_by_id("quick-search").click()
+            driver.find_element_by_id("quick-search").clear()
+            driver.find_element_by_id("quick-search").send_keys("1576551212ICoH")
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
+            # Player에서 빠르기 확인 (Default : x1.0)
+            self.assertEqual("x1.0", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='|'])[1]/following::button[1]").text)
+            # Player에서 빠르기 클릭
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='|'])[1]/following::button[1]").click()
+            # Player에서 빠르기 선택
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='x1.0'])[1]/following::button[1]").click()
+        except:
+            print('TEST FAIL : test_check_player_speed')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot(
+                '../../../staging/Chrome/Test_Results/Screenshots/test_check_player_speed-%s.png' % now)
+        else:
+            print('TEST PASS : test_check_player_speed')
+
+    def test_check_player_screenSze(self):  # Player에서 화면 크기 조정 기능 확인
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
+            # Videos 메뉴로 이동
+            driver.find_element_by_link_text("Videos").click()
+            time.sleep(3)
+            # Thumbnail View 전환
+            driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div[2]/div/div/div[2]/div[2]/button[2]/i").click()
+            # 유효한 검색어 입력 (ID) > [Search]버튼 클릭 > 검색결과 확인 (ID)
+            driver.find_element_by_id("quick-search").click()
+            driver.find_element_by_id("quick-search").clear()
+            driver.find_element_by_id("quick-search").send_keys("1576551212ICoH")
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Quick Search'])[1]/following::span[1]").click()
+            # Player에서 [full screen]아이콘 확인
+            self.assertEqual("fullscreen", driver.find_element_by_xpath(
+                u"(.//*[normalize-space(text()) and normalize-space(.)='세팅'])[1]/following::button[1]").text)
+            # Player에서 [full screen]버튼 클릭
+            driver.find_element_by_xpath(
+                u"(.//*[normalize-space(text()) and normalize-space(.)='세팅'])[1]/following::button[1]").click()
+            # Player에서 [Origin screen]버튼 확인
+            self.assertEqual("fullscreen", driver.find_element_by_xpath(
+                u"(.//*[normalize-space(text()) and normalize-space(.)='세팅'])[1]/following::button[1]").text)
+            # Player에서 [Origin screen]버튼 클릭
+            driver.find_element_by_xpath(
+                u"(.//*[normalize-space(text()) and normalize-space(.)='세팅'])[1]/following::button[1]").click()
+        except:
+            print('TEST FAIL : test_check_player_screenSze')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot(
+                '../../../staging/Chrome/Test_Results/Screenshots/test_check_player_screenSze-%s.png' % now)
+        else:
+            print('TEST PASS : test_check_player_screenSze')
+
     def tearDown(self):
         self.driver.close()
         self.driver.quit()
@@ -960,12 +1172,12 @@ def suite():
     #suite.addTest(Videos_Detail("test_check_title_edit"))
     #suite.addTest(Videos_Detail("test_check_publish")) # 실제 퍼플리싱되었는지 체크안함
     #suite.addTest(Videos_Detail("test_check_delete")) # 실제 삭제동작 체크안함
+    suite.addTest(Videos_Detail("test_check_player_source")) # 펼치기/접기 아이콘
+    #suite.addTest(Videos_Detail("test_check_player_play")) # 실제 영상재생은 확인 불가
+    #suite.addTest(Videos_Detail("test_check_player_sound")) # 실제 sound는 확인 불가
+    #suite.addTest(Videos_Detail("test_check_player_speed")) # 실제 속도는 확인 불가
+    #suite.addTest(Videos_Detail("test_check_player_screenSze"))
     '''
-    suite.addTest(Videos_Detail("test_check_quickSearch_name"))
-    suite.addTest(Videos_Detail("test_check_quickSearch_id"))
-    suite.addTest(Videos_Detail("test_check_quickSearch_owner"))
-    suite.addTest(Videos_Detail("test_check_quickSearch_tags"))
-    suite.addTest(Videos_Detail("test_check_advancedSearch_name"))
     suite.addTest(Videos_Detail("test_check_advancedSearch_id"))
     suite.addTest(Videos_Detail("test_check_advancedSearch_owner"))
     suite.addTest(Videos_Detail("test_check_advancedSearch_description"))
