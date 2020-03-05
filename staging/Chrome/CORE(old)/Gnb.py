@@ -19,7 +19,7 @@ class Gnb(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
 
-    def test_check_ui(self): # Service Logo 출력 및 링크 이동 확인
+    def test_check_img_logo(self): # Service Logo 출력 및 링크 이동 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
@@ -33,69 +33,71 @@ class Gnb(unittest.TestCase):
             driver.find_element_by_xpath("//img[@alt='logo']").click()
             time.sleep(3)
             # Main Page로 이동 확인 (Create Jobs Title 확인)
-            self.assertEqual("Create Job", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Channels'])[1]/following::h3[1]").text)
+            self.assertEqual("Create Job", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Channels'])[1]/following::h3[1]").text)
+        except:
+            print('TEST FAIL : check_img_logo')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+        else:
+            print('TEST PASS : check_img_logo')
 
-            ### [Create Job]버튼 출력 및 링크 이동 확인
+    def test_check_btn_createJob(self): # [Create Job]버튼 출력 및 링크 이동 확인
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.move_main(self) # Project Main page로 이동하는 공통 모듈 호출
             # [Create Job]버튼 확인
-            self.assertEqual("Create job",
-                             driver.find_element_by_xpath("//div[@id='root']/div/nav/div[2]/div/ul/li/a/strong").text)
+            self.assertEqual("+ Create job", driver.find_element_by_link_text("+ Create job").text)
+            # Jobs Page로 이동
+            driver.find_element_by_link_text("Jobs").click()
+            time.sleep(3)
             # [Create Job]버튼 클릭
-            driver.find_element_by_xpath("//div[@id='root']/div/nav/div[2]/div/ul/li/a/strong").click()
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Megazone'])[1]/preceding::strong[1]").click()
             time.sleep(3)
             # Create Job 페이지로 이동 확인 (Create Job Title 확인)
             self.assertEqual("Create Job", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Channels'])[1]/following::h3[1]").text)
         except:
-            print('TEST FAIL : test_check_ui')
+            print('TEST FAIL : check_btn_createJob')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_check_ui-%s.png' % now)
+            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : test_check_ui')
+            print('TEST PASS : check_btn_createJob')
 
     def test_check_project(self): # Project 정보 출력 및 링크 이동 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
             staging.Chrome.CORE.common.move_main(self)  # Project Main page로 이동하는 공통 모듈 호출
-            # Stage 아이콘 확인 (시간될때 찾아보자)
-            #self.assertEqual("thumbnail", driver.find_element_by_xpath("//div/i[@class='thumbnail']").text)
-            #self.assertEqual("/images/stage.png",
-            #                 driver.find_element_by_xpath("//div/i[@img src='/images/stage.png']").text)
+            # Project 아이콘 확인
+            self.assertEqual("Megazone", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Create job'])[1]/following::strong[1]").text)
             # Stage Name 확인 (Megazone)
-            self.assertEqual("Megazone", driver.find_element_by_xpath(
-                "//div[@id='root']/div/nav/div[2]/div/ul/li[2]/div/div/button/div/div/strong").text)
-            # Project Name 확인 (Project C)
-            self.assertEqual("Project C", driver.find_element_by_xpath(
-                "//div[@id='root']/div/nav/div[2]/div/ul/li[2]/div/div/button/div/div/span").text)
+            self.assertEqual("Continuum", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Megazone'])[1]/following::span[1]").text)
+            # Project Name 확인 (Continuum)
+            # self.assertEqual("MegazoneContinuum", driver.find_element_by_xpath(
+            #   "(.//*[normalize-space(text()) and normalize-space(.)='Create job'])[1]/following::button[1]").text)
             # Project Select Menu 클릭
-            driver.find_element_by_xpath("//button[@type='button']").click()
-            time.sleep(3)
-            # Project Select Menu에서 Stage 아이콘 확인
-            #self.assertEqual("Megazone", driver.find_element_by_xpath(
-            #    "(.//*[normalize-space(text()) and normalize-space(.)='Continuum'])[1]/following::strong[1]").text)
-            # Project Select Menu에서 Stage Name 확인 (Megazone)
-            self.assertEqual("Megazone", driver.find_element_by_xpath(
-                "//div[@id='root']/div/nav/div[2]/div/ul/li[2]/div/div/div/div/div/strong").text)
-            # Project Select Menu에서 Project Name 확인 (Project C)
-            self.assertEqual("Project C", driver.find_element_by_link_text("Project C").text)
-            # Project Select Menu에서 Project Name 확인 (Project D)
-            self.assertEqual("Project D", driver.find_element_by_link_text("Project D").text)
-            # Project Select Menu에서 다른 Project 클릭 (Project D)
-            driver.find_element_by_link_text("Project D").click()
-            time.sleep(3)
-            # Project D Project Page로 이동 확인
-            self.assertEqual("Project D", driver.find_element_by_xpath(
-                "//div[@id='root']/div/nav/div[2]/div/ul/li[2]/div/div/button/div/div/span").text)
-            # Project Select Menu 클릭
-            driver.find_element_by_xpath("//button[@type='button']").click()
-            time.sleep(3)
-            # Project Select 이동 아이콘 클릭하여 Project Select 화면으로 이동
-            driver.find_element_by_xpath("//div[@id='root']/div/nav/div[2]/div/ul/li[2]/div/div/div/div/a/i").click()
-            # Project 선택하여 다시 메인 메이지로 복귀 (Project C)
             driver.find_element_by_xpath(
-                "//div[@id='root']/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div/ul/li/a/div/p").click()
+                "(.//*[normalize-space(text()) and normalize-space(.)='Create job'])[1]/following::button[1]").click()
+            time.sleep(3)
+            # Project Select Menu에서 Project 아이콘 확인
+            self.assertEqual("Megazone", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Continuum'])[1]/following::strong[1]").text)
+            # Project Select Menu에서 Project Name 확인 (Continuum)
+            self.assertEqual("Continuum", driver.find_element_by_link_text("Continuum").text)
+            # Project Select Menu에서 Project Name 확인 (Demo)
+            self.assertEqual("Demo", driver.find_element_by_link_text("Demo").text)
+            # Project Select Menu에서 다른 Project 클릭 (Demo)
+            driver.find_element_by_link_text("Demo").click()
+            time.sleep(3)
+            # Demo Project Page로 이동 확인
+            self.assertEqual("Demo", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Megazone'])[1]/following::span[1]").text)
         except:
             print('TEST FAIL : check_project')
             logging.basicConfig(stream=sys.stderr, level=logging.error)
@@ -109,15 +111,14 @@ class Gnb(unittest.TestCase):
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
             staging.Chrome.CORE.common.move_main(self) # Project Main page로 이동하는 공통 모듈 호출
-            # 사용자 아이콘 확인 -> 갑자기 버튼이 upload로 바뀜 why?
-            #self.assertEqual("sprite sprite-user", driver.find_element_by_class_name('sprite sprite-user').text)
-            driver.find_element_by_xpath("//div[@id='root']/div/nav/div[2]/div/ul/li[3]/div/a/i")
+            # 사용자 아이콘 확인
+            self.assertEqual("sprite sprite-user", driver.find_element_by_class_name('sprite sprite-user').text)
             # 사용자 이름 확인
-            self.assertEqual("메가존", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='media.qa.001@gmail.com'])[1]/preceding::em[1]").text)
+            self.assertEqual("Megazone (Owner)", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='mcmtestowner@gmail.com'])[1]/preceding::em[1]").text)
             # 사용자 계정 확인
-            self.assertEqual("media.qa.001@gmail.com", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='메가존'])[1]/following::small[1]").text)
+            self.assertEqual("mcmtestowner@gmail.com", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Megazone (Owner)'])[1]/following::small[1]").text)
         except:
             print('TEST FAIL : check_user')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -218,7 +219,7 @@ class Gnb(unittest.TestCase):
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
             staging.Chrome.CORE.common.move_main(self) # Project Main page로 이동하는 공통 모듈 호출
-            Gnb.test_click_btn_downloadApps(self) # Download Apps 팝업을 호출하는 함수 호출
+            Gnb.click_btn_downloadApps(self) # Download Apps 팝업을 호출하는 함수 호출
             time.sleep(3)
             # DownloadApps 팝업에서 Title 확인
             self.assertEqual("Download Apps", driver.find_element_by_xpath(
@@ -316,7 +317,8 @@ class Gnb(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(Gnb('test_check_ui'))
+    suite.addTest(Gnb('test_check_img_logo'))
+    suite.addTest(Gnb('test_check_btn_createJob'))
     suite.addTest(Gnb('test_check_project'))
     suite.addTest(Gnb('test_check_user'))
     suite.addTest(Gnb('test_click_btn_signOut'))

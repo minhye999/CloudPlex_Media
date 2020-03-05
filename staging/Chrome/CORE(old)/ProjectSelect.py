@@ -19,42 +19,54 @@ class ProjectSelect(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
 
-    def test_projectSelect_ui(self): # User 정보 확인
+    def test_check_user(self): # User 정보 확인
         driver = self.driver
         driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
         try:
             staging.Chrome.CORE.common.signIn_megazone(self) # Megazone SignIn하는 공통 모듈 호출
             # 사용자 이름 확인
-            self.assertEqual("메가존", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='media.qa.001@gmail.com'])[1]/preceding::em[1]").text)
+            self.assertEqual("Megazone (Owner)", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='mcmtestowner@gmail.com'])[1]/preceding::em[1]").text)
             # 사용자 계정 확인
-            self.assertEqual("media.qa.001@gmail.com", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='메가존'])[1]/following::small[1]").text)
+            self.assertEqual("mcmtestowner@gmail.com", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Megazone (Owner)'])[1]/following::small[1]").text)
             # 사용자 이름이 출력된 인사 텍스트 확인
-            self.assertEqual("Hi, 메가존", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='media.qa.001@gmail.com'])[1]/following::h1[1]").text)
+            self.assertEqual("Hi, Megazone (Owner)", driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='mcmtestowner@gmail.com'])[1]/following::h1[1]").text)
+        except:
+            print('TEST FAIL : check_user')
+            logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
+        else:
+            print('TEST PASS : check_user')
+
+    def test_check_project(self): # Project 정보 확인
+        driver = self.driver
+        driver.get("http://mz-cm-console-stg-stage.s3-website.ap-northeast-2.amazonaws.com/welcome")
+        try:
+            staging.Chrome.CORE.common.signIn_megazone(self) # Megazone SignIn하는 공통 모듈 호출
             # Administration 아이콘 확인
-            self.assertEqual("Project C", driver.find_element_by_xpath(
+            self.assertEqual("Continuum", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Administration'])[1]/following::div[4]").text)
             # Project Icon 확인
             self.assertEqual("", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Project C'])[1]/following::button[1]").get_attribute(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Continuum'])[1]/following::button[1]").get_attribute(
                 "value"))
-            # Project Name 확인 (Project C)
+            # Project Name 확인 (Continuum)
+            self.assertEqual("mz-cm-v1", driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Continuum'])[1]/following::p[1]").text)
+            # Project ID 확인 (Continuum)
             self.assertEqual("mz-cm-v1", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Project C'])[1]/following::p[1]").text)
-            # Project ID 확인 (Project C)
-            self.assertEqual("mz-cm-v1", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Project C'])[1]/following::p[1]").text)
-            # Project 이동 아이콘 확인 (Project C)
-            # self.assertEqual("Project Cmz-cm-v1", driver.find_element_by_link_text("Project Cmz-cm-v1").text)
-        except:
-            print('TEST FAIL : test_projectSelect_ui')
+                "(.//*[normalize-space(text()) and normalize-space(.)='Continuum'])[1]/following::p[1]").text)
+            # Project 이동 아이콘 확인 (Continuum)
+            #self.assertEqual("Continuummz-cm-v1", driver.find_element_by_link_text("Continuummz-cm-v1").text)
+        except Exception as e:
+            print('TEST FAIL : check_project')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
             now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_projectSelect_ui-%s.png' % now)
+            self.driver.save_screenshot('../../../staging/Chrome/Test_Results/Screenshots/test_SignIn-%s.png' % now)
         else:
-            print('TEST PASS : test_projectSelect_ui')
+            print('TEST PASS : check_project')
 
     def test_set_asDefault(self): # Default Project 설정 기능 확인
         driver = self.driver
@@ -62,29 +74,16 @@ class ProjectSelect(unittest.TestCase):
         try:
             staging.Chrome.CORE.common.signIn_megazone(self) # Megazone SignIn하는 공통 모듈 호출
             # [...]아이콘 클릭
-            driver.find_element_by_xpath("(//button[@type='button'])[2]").click()
-            #driver.find_element_by_xpath(
-            #    "//div[@id='root']/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div/ul/li/div/button/i").click()
+            driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div/ul/li/div/button/i").click()
             # [Set as default] 설정
-            driver.find_element_by_xpath("(//button[@type='button'])[3]").click()
-            #driver.find_element_by_xpath(
-            #    "(.//*[normalize-space(text()) and normalize-space(.)='Etc'])[1]/following::button[1]").click()
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Etc'])[1]/following::button[1]").click()
             # Project에 Default 아이콘 출력 확인
             self.assertEqual("Default", driver.find_element_by_xpath(
-                "//div[@id='root']/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div/ul/li/a/div/div/span").text)
-            # Default가 설정된 Project로 이동 (아... 험난한 과정이었어...)
-            #driver.get("https://console.media.stg.continuum.co.kr/stage").click()
-            driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Administration'])[1]/following::div[4]").click()
-            #self.assertEqual("Project C(Currently Online)Defaultmz-cm-v1", driver.find_element_by_link_text(
-            #    "Project C(Currently Online)Defaultmz-cm-v1").text).click()
-            #self.assertEqual("Project C(Currently Online)Default", driver.find_element_by_xpath(
-            #    "//div[@id='root']/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div/ul/li/a/div/div").text).click()
-            #self.assertEqual("mz-cm-v1", driver.find_element_by_xpath(
-            #    "//div[@id='root']/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div/ul/li/a/div/p").text).click()
-            #self.assertEqual("(Currently Online)", driver.find_element_by_xpath(
-            #    "//div[@id='root']/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div/ul/li/a/div/div/p").text).click()
-            #driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Administration'])[1]/following::div[4]").click()
+                "(.//*[normalize-space(text()) and normalize-space(.)='Continuum'])[1]/following::span[1]").text)
+            # Default가 설정된 Project로 이동
+            driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Administration'])[1]/following::div[4]").click()
             time.sleep(3)
             # [Sign Out]버튼 클릭
             driver.find_element_by_xpath("//div[@id='root']/div/nav/div[2]/div/ul/li[3]/div/button/i").click()
@@ -95,8 +94,8 @@ class ProjectSelect(unittest.TestCase):
             # Project Select 과정없이, Default로 설정한 Project의 Stage에 진입하였음을 확인 (Megazone)
             self.assertEqual("Megazone", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Create job'])[1]/following::strong[1]").text)
-            # Project Select 과정없이, Default로 설정한 Project에 진입하였음을 확인 (Project C)
-            self.assertEqual("Project C", driver.find_element_by_xpath(
+            # Project Select 과정없이, Default로 설정한 Project에 진입하였음을 확인 (Continuum)
+            self.assertEqual("Continuum", driver.find_element_by_xpath(
                 "(.//*[normalize-space(text()) and normalize-space(.)='Megazone'])[1]/following::span[1]").text)
         except:
             print('TEST FAIL : set_asDefault')
@@ -112,13 +111,14 @@ class ProjectSelect(unittest.TestCase):
         try:
             staging.Chrome.CORE.common.signIn_megazone(self) # Megazone SignIn하는 공통 모듈 호출
             # [...]아이콘 클릭
-            driver.find_element_by_xpath("(//button[@type='button'])[2]").click()
+            driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div/ul/li/div/button/i").click()
             # [Set as default] 설정
-            driver.find_element_by_xpath("(//button[@type='button'])[3]").click()
+            driver.find_element_by_xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Etc'])[1]/following::button[1]").click()
             # [...]아이콘 클릭
-            driver.find_element_by_xpath("(//button[@type='button'])[2]").click()
-            #driver.find_element_by_xpath(
-            #    "//div[@id='root']/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div/ul/li/div/button/i").click()
+            driver.find_element_by_xpath(
+                "//div[@id='root']/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div/ul/li/div/button/i").click()
             # [Unset default] 설정
             driver.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Etc'])[1]/following::button[1]").click()
             # Default가 설정안된 Project로 이동
@@ -131,14 +131,13 @@ class ProjectSelect(unittest.TestCase):
             driver.find_element_by_link_text("Sign in with Megazone Accounts").click()
             time.sleep(3)
             # Project Select 화면으로 이동함 확인
-            self.assertEqual("Please select the Project of the Stage you want to access.",
-                             driver.find_element_by_xpath("//div[@id='root']/div/div/div/div/div/div/div/p").text)
-            # Project Name 확인 (Project C)
+
+            # Project Name 확인 (Continuum)
             self.assertEqual("mz-cm-v1", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Project C'])[1]/following::p[1]").text)
-            # Project ID 확인 (Project C)
+                "(.//*[normalize-space(text()) and normalize-space(.)='Continuum'])[1]/following::p[1]").text)
+            # Project ID 확인 (Continuum)
             self.assertEqual("mz-cm-v1", driver.find_element_by_xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Project C'])[1]/following::p[1]").text)
+                "(.//*[normalize-space(text()) and normalize-space(.)='Continuum'])[1]/following::p[1]").text)
         except:
             print('TEST FAIL : unset_asDefault')
             logging.basicConfig(stream=sys.stderr, level=logging.error)  # 로그 출력
@@ -154,7 +153,8 @@ class ProjectSelect(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(ProjectSelect('test_projectSelect_ui'))
+    suite.addTest(ProjectSelect('test_check_user'))
+    suite.addTest(ProjectSelect('test_check_project'))
     suite.addTest(ProjectSelect('test_set_asDefault'))
     suite.addTest(ProjectSelect('test_unset_asDefault'))
     return suite
